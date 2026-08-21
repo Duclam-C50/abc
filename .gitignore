@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+.venv/
+Env/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large data files
+data/log_goc/
+*.csv
+*.pkl
+*.keras
+
+# IDE configs
+.vscode/
+.idea/
+
+# Antigravity artifacts
+.gemini/
+artifacts/
+git_portable/
