@@ -139,33 +139,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     self.send_error(500, f"Error reading eval report: {e}")
                     return
 
-        # API: Get process tree data
-        elif clean_path == '/api/process_tree':
-            search_kw = query.get('search', [None])[0]
-            limit_str = query.get('limit', ['50'])[0]
-            try:
-                limit = int(limit_str)
-            except ValueError:
-                limit = 50
 
-            from scripts.show_process_tree import get_process_tree_data
-            from anomaly_detection.config import Paths
-
-            eval_csv = Paths().eval_data
-            if not os.path.exists(eval_csv):
-                eval_csv = os.path.join(project_root, "data", "evaluate", "log_csv", "malware_winword.csv")
-
-            try:
-                tree_data = get_process_tree_data(eval_csv, search_kw=search_kw, limit=limit)
-                json_bytes = json.dumps(tree_data, ensure_ascii=False).encode('utf-8')
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(json_bytes)
-                return
-            except Exception as e:
-                self.send_error(500, f"Error building process tree: {e}")
-                return
 
         # Redirect root to index.html
         elif clean_path == '/' or clean_path == '/index.html':
