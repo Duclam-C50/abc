@@ -587,8 +587,6 @@
         let anomaliesData = [];
         let chartInstance = null;
         let selectedAnomalyItem = null;
-        let rawProcessTreeData = [];
-        let isProcessTreeLoaded = false;
         let currentViewMode = 'all'; // flat view for individual sequences
         let currentLineageView = 'steps'; // 'steps' or 'tree'
         let cachedRelatedTreeData = null;
@@ -672,20 +670,6 @@
         let currentLimit = 50;
         let totalRecords = 0;
         let searchDebounceTimer = null;
-
-        // Fetch Metrics with timestamp to bypass browser cache
-        fetch('/api/eval?t=' + Date.now())
-            .then(res => res.json())
-            .then(data => {
-                if (data.auc !== undefined) {
-                    document.getElementById('auc-val').innerText = (data.auc * 100).toFixed(2) + '%';
-                }
-                if (data.threshold !== undefined || data.global_threshold !== undefined) {
-                    const thr = data.threshold !== undefined ? data.threshold : data.global_threshold;
-                    document.getElementById('threshold-val').innerText = Number(thr).toFixed(4);
-                }
-            })
-            .catch(err => console.warn("Could not load /api/eval:", err));
 
         // Load devices and anomalies from SQLite database on startup
         loadDevices();

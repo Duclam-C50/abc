@@ -122,72 +122,7 @@ def _compute_ig(
     return np.squeeze((input_seq - baseline_seq) * avg_grads, axis=0)  # (seq_len, n_features)
 
 
-def _align_baseline(input_seq: np.ndarray, df_seq: pd.DataFrame, feature_names: list) -> np.ndarray:
-    """
-    Construct an aligned baseline where features that are logically missing
-    (have values like '-', '0', 'N/A', or NaN in the raw DataFrame)
-    are set equal to the input features. This mathematically forces their
-    Integrated Gradients attribution score to be exactly 0.0.
-    """
-    baseline = np.zeros_like(input_seq)
-    seq_len = input_seq.shape[1]
-    
-    missing_placeholders = {'-', '0', '0.0', 'n/a', 'nan', 'null', '[]', '', None}
-    
-    for s in range(seq_len):
-        row_dict = df_seq.iloc[s].to_dict()
-        for j, col_name in enumerate(feature_names):
-            val = row_dict.get(col_name)
-            val_str = str(val).strip().lower() if pd.notna(val) else 'nan'
-            
-            if val_str in missing_placeholders:
-                baseline[0, s, j] = input_seq[0, s, j]
-                
-    return baseline
 
-
-def _clean_id(val) -> str:
-    if val is None:
-        return ""
-    s = str(val).strip()
-    if s.lower() in ["nan", "none", "", "0", "0.0", "-", "00000000-0000-0000-0000-000000000000"]:
-        return ""
-    if s.endswith(".0") and s[:-2].isdigit():
-        s = s[:-2]
-    return s
-
-
-def _build_lineage_maps(df_full: pd.DataFrame):
-    guid_map = {}
-    pid_map = {}
-    if 'EventID' in df_full.columns:
-        event_ids = df_full['EventID'].values
-        process_guids = df_full['ProcessGuid'].values if 'ProcessGuid' in df_full.columns else [None]*len(df_full)
-        process_pids = df_full['ProcessId'].values if 'ProcessId' in df_full.columns else (df_full['ProcessID'].values if 'ProcessID' in df_full.columns else [None]*len(df_full))
-        
-        for i in range(len(df_full)):
-            if event_ids[i] == 1:
-                guid = _clean_id(process_guids[i])
-                if guid:
-                    guid_map[guid] = i
-                pid = _clean_id(process_pids[i])
-                if pid:
-                    pid_map[pid] = i
-    return guid_map, pid_map
-
-
-def _get_parent_idx(df_full: pd.DataFrame, target_idx: int, guid_map: dict, pid_map: dict) -> int:
-    row = df_full.iloc[target_idx]
-    p_guid = _clean_id(row.get('ParentProcessGuid'))
-    if p_guid and p_guid in guid_map:
-        return guid_map[p_guid]
-        
-    p_pid = _clean_id(row.get('ParentProcessId') or row.get('ParentProcessID'))
-    if p_pid and p_pid in pid_map:
-        p_row = pid_map[p_pid]
-        if p_row < target_idx:
-            return p_row
-    return -1
 
 
 # ===========================================================================
