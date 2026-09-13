@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 45530
+Trigger row (Excel)  : 45534
+Reconstruction error : 0.003975
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 45532
+Attribution score    : 0.035313
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009495
+  #02  CallTrace                      0.008870
+  #03  PipeName                       0.008636
+  #04  IsExecutable                   0.008311
+  #05  SourcePort                     0.000000
+  #06  DestinationPort                0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:20:03.246319
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=data_decoder.mojom.DataDecoderService --lang=en-US --service-sandbox-type=service --mojo-platform-channel-handle=3108 --field-trial-handle=1836,i,14202765464589022220,12357970645680968835,131072 /prefetch:8

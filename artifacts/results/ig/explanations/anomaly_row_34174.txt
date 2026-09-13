@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 34172]
+Trigger row (Excel)  : 34174
+Reconstruction error : 0.007244
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.025544
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.008310
+  #02  Signature                      0.008239
+  #03  ParentCommandLine              0.004289
+  #04  StartFunction                  0.002615
+  #05  StartModule                    0.001414
+  #06  Details                        0.000646
+  #07  ParentImage                    0.000036
+  #08  EventID_22                     0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 22:15:02.762373
+Image        : C:\Windows\System32\SecurityHealthHost.exe
+CommandLine  : C:\Windows\System32\SecurityHealthHost.exe {6CED0DAA-4CDE-49C9-BA3A-AE163DC3D7AF} -Embedding

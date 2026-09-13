@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 45611
+Trigger row (Excel)  : 45615
+Reconstruction error : 0.014285
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 45613
+Attribution score    : 0.037586
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.009975
+  #02  GrantedAccess                  0.009468
+  #03  CallTrace                      0.009123
+  #04  PipeName                       0.009020
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:21:25.137018
+Image        : C:\Windows\System32\WinSAT.exe
+CommandLine  : C:\Windows\system32\winsat.exe formal -log -cancelevent 4cedd689-cdb5-4685-8b6a-3309b93b64a5

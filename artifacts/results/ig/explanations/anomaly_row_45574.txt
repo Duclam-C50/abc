@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 45570
+Trigger row (Excel)  : 45574
+Reconstruction error : 0.003639
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 45572
+Attribution score    : 0.035556
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.010009
+  #02  CallTrace                      0.009180
+  #03  PipeName                       0.008422
+  #04  IsExecutable                   0.008397
+  #05  SourcePort                     0.000000
+  #06  DestinationPort                0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:20:34.523872
+Image        : C:\Windows\System32\LocationNotificationWindows.exe
+CommandLine  : C:\Windows\System32\LocationNotificationWindows.exe

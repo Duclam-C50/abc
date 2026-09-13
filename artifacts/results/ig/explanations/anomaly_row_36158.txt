@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 36177, 36156]
+Trigger row (Excel)  : 36158
+Reconstruction error : 0.007519
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.021265
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.007839
+  #02  CommandLine                    0.006302
+  #03  ParentCommandLine              0.003220
+  #04  StartFunction                  0.002249
+  #05  StartModule                    0.001174
+  #06  Details                        0.000463
+  #07  ParentImage                    0.000015
+  #08  QueryResults                   0.000002
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 22:53:35.065238
+Image        : C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ngentask.exe
+CommandLine  : "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\NGenTask.exe" /RuntimeWide /StopEvent:1356

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 17795, 17752]
+Trigger row (Excel)  : 17754
+Reconstruction error : 0.009676
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.020117
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.007443
+  #02  CommandLine                    0.006053
+  #03  ParentCommandLine              0.002888
+  #04  StartFunction                  0.002096
+  #05  StartModule                    0.001122
+  #06  Details                        0.000511
+  #07  QueryResults                   0.000008
+  #08  EventID_22                     0.000000
+  #09  EventID_6                      -0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:30:42.148876
+Image        : C:\Users\ALTINI~1.STE\AppData\Local\Temp\364E9511-536E-45F0-86E9-5C4545EABBBB\DismHost.exe
+CommandLine  : C:\Users\ALTINI~1.STE\AppData\Local\Temp\364E9511-536E-45F0-86E9-5C4545EABBBB\dismhost.exe {99F0ED1A-3D4B-4947-B30E-CCEC38CA47F2}

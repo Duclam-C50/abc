@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 39723
+Trigger row (Excel)  : 39727
+Reconstruction error : 0.011508
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 39725
+Attribution score    : 0.038090
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010246
+  #02  PipeName                       0.009359
+  #03  GrantedAccess                  0.009293
+  #04  CallTrace                      0.009193
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 21:42:54.968498
+Image        : C:\Windows\System32\dsregcmd.exe
+CommandLine  : "C:\Windows\System32\dsregcmd.exe" $(Arg0) $(Arg1) $(Arg2)

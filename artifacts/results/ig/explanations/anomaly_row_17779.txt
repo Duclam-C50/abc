@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 17775
+Trigger row (Excel)  : 17779
+Reconstruction error : 0.002835
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 17777
+Attribution score    : 0.037306
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010183
+  #02  GrantedAccess                  0.009697
+  #03  CallTrace                      0.008927
+  #04  PipeName                       0.008682
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 15:37:33.373061
+Image        : C:\Users\altinistef.STEFANIA\Downloads\winrar-x32-611.exe
+CommandLine  : 0

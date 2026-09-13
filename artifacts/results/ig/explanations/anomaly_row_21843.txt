@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [22062, 22055, 21841]
+Trigger row (Excel)  : 21843
+Reconstruction error : 0.008661
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 22064
+Attribution score    : 0.004522
+SystemTime           : 2021-09-07 18:02:53.505042
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002704
+  #02  Image                          0.002250
+  #03  IntegrityLevel                 0.001814
+  #04  ParentCommandLine              0.001432
+  #05  ParentImage                    0.001073
+  #06  CurrentDirectory               0.000775
+  #07  Details                        0.000259
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 17:58:02.296074
+Image        : C:\Windows\System32\wuauclt.exe
+CommandLine  : "C:\Windows\system32\wuauclt.exe" /UpdateDeploymentProvider UpdateDeploymentProvider.dll /ClassId 20fb2a4a-edca-4b1d-a674-deb08b523579 /RunHandlerComServer

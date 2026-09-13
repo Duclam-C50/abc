@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 26111
+Trigger row (Excel)  : 26115
+Reconstruction error : 0.003196
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 26113
+Attribution score    : 0.038409
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010197
+  #02  PipeName                       0.009524
+  #03  CallTrace                      0.009374
+  #04  GrantedAccess                  0.009315
+  #05  DestinationPort                0.000000
+  #06  Signed                         0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 17:56:42.483878
+Image        : \\live.sysinternals.com\tools\PsExec64.exe
+CommandLine  : PsExec64.exe  \\WINDOWS10EVAL cmd -accepteula

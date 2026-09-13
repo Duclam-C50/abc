@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 930]
+Trigger row (Excel)  : 932
+Reconstruction error : 0.012701
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.027891
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.009360
+  #02  Signature                      0.008327
+  #03  ParentCommandLine              0.005081
+  #04  StartFunction                  0.002786
+  #05  StartModule                    0.001560
+  #06  Details                        0.000741
+  #07  ParentImage                    0.000046
+  #08  EventID_22                     0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 10:59:21.307114
+Image        : C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\OneDrive\22.248.1127.0001\FileCoAuth.exe
+CommandLine  : 0

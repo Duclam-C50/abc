@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 40533]
+Trigger row (Excel)  : 40535
+Reconstruction error : 0.012228
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.024403
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.008142
+  #02  Signature                      0.007883
+  #03  ParentCommandLine              0.003820
+  #04  StartFunction                  0.002497
+  #05  StartModule                    0.001358
+  #06  Details                        0.000687
+  #07  ParentImage                    0.000012
+  #08  QueryResults                   0.000004
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 00:24:01.489827
+Image        : C:\Windows\System32\MpSigStub.exe
+CommandLine  : C:\Windows\system32\MpSigStub.exe /stub 1.1.18500.10 /payload 1.379.1272.0 /MpWUStub /program C:\Windows\SoftwareDistribution\Download\Install\AM_Delta_Patch_1.379.1215.0.exe WD /q

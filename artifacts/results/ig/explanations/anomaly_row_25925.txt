@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 25921
+Trigger row (Excel)  : 25925
+Reconstruction error : 0.003809
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 25923
+Attribution score    : 0.037092
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009833
+  #02  IsExecutable                   0.009786
+  #03  CallTrace                      0.008873
+  #04  PipeName                       0.008601
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 17:53:32.898370
+Image        : C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe" /ping PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cmVxdWVzdCBwcm90b2NvbD0iMy4wIiB1cGRhdGVyPSJPbWFoYSIgdXBkYXRlcnZlcnNpb249IjEuMy4xNzEuMzciIHNoZWxsX3ZlcnNpb249IjEuMy4xNDcuMzciIGlzbWFjaGluZT0iMSIgc2Vzc2lvbmlkPSJ7MkNCOUQwMkQtQUZEMC00QTU1LUE0RjMtQkU3RDhDQjIyRDEwfSIgdXNlcmlkPSJ7REI0REY5RUItOTlBQi00MUM2LTg0ODgtODlCQzY4NDhBNUU5fSIgaW5zdGFsbHNvdXJjZT0ic2NoZWR1bGVyIiByZXF1ZXN0aWQ9InswMjMwMEQ2QS02MTFFLTQyRDItOUJDMi1CMzUzQjhGOTUxNkR9IiBkZWR1cD0iY3IiIGRvbWFpbmpvaW5lZD0iMSI-PGh3IGxvZ2ljYWxfY3B1cz0iMSIgcGh5c21lbW9yeT0iMiIgZGlza190eXBlPSIxIiBzc2U9IjEiIHNzZTI9IjEiIHNzZTM9IjEiIHNzc2UzPSIxIiBzc2U0MT0iMSIgc3NlNDI9IjEiIGF2eD0iMSIvPjxvcyBwbGF0Zm9ybT0id2luIiB2ZXJzaW9uPSIxMC4wLjE5MDQ1LjIyNTEiIHNwPSIiIGFyY2g9Ing2NCIgcHJvZHVjdF90eXBlPSI0OCIgaXNfd2lwPSIwIi8-PG9lbSBwcm9kdWN0X21hbnVmYWN0dXJlcj0iaW5ub3RlayBHbWJIIiBwcm9kdWN0X25hbWU9IlZpcnR1YWxCb3giLz48ZXhwIGV0YWc9IiZxdW90O2N6SXc2L0ZGT0t2VERzWEpXb2VsaVFReVRIK055RmZsWVdqeWwrdFBJZEE9JnF1b3Q7Ii8-PGFwcCBhcHBpZD0ie0YzQzRGRTAwLUVGRDUtNDAzQi05NTY5LTM5OEEyMEYxQkE0QX0iIHZlcnNpb249IjEuMy4xNzEuMzciIG5leHR2ZXJzaW9uPSIiIGxhbmc9IiIgYnJhbmQ9IklOQlgiIGNsaWVudD0iIiBleHBlcmltZW50cz0iY2hyb21lcmVjMz0yMDIyNDdSIiBpbnN0YWxsYWdlPSIxMiIgY29ob3J0PSJycmZAMC42MSI-PHVwZGF0ZWNoZWNrLz48cGluZyByZD0iNTgxOSIgcGluZ19mcmVzaG5lc3M9Ins0NkU3RUNCOS1BRjA2LTQ2NTktODUwQS03QUIzOTA5MEZCNkZ9Ii8-PC9hcHA-PGFwcCBhcHBpZD0iezU2RUIxOEY4LUIwMDgtNENCRC1CNkQyLThDOTdGRTdFOTA2Mn0iIHZlcnNpb249IjEwOC4wLjE0NjIuNDIiIG5leHR2ZXJzaW9uPSIiIGxhbmc9IiIgYnJhbmQ9IklOQlgiIGNsaWVudD0iIiBleHBlcmltZW50cz0iY2hyb21lcmVjMz0yMDIyNDdSO3VuaW5zdGFsbD0xIiBjb2hvcnQ9InJyZkAwLjk1IiBvb2JlX2luc3RhbGxfdGltZT0iMTg0NDY3NDQwNzM3MDk1NTE2MDYiIHVwZGF0ZV9jb3VudD0iMyIgbGFzdF9sYXVuY2hfdGltZT0iMTMzMTQ5MTAxNTIxODg4NzMwIj48dXBkYXRlY2hlY2svPjxwaW5nIGFjdGl2ZT0iMSIgYWQ9IjU4MTkiIHJkPSI1ODE5IiBwaW5nX2ZyZXNobmVzcz0ie0RGREJDQkEzLTM1RUUtNDFGNi1CMENDLUIxNTBGMUI4MzE1MH0iLz48L2FwcD48L3JlcXVlc3Q-

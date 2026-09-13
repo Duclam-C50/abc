@@ -1,0 +1,9 @@
+keras
+torch
+torchvision
+numpy
+pandas
+scikit-learn
+joblib
+matplotlib
+evtx

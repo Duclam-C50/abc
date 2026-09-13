@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [18034, 18026, 17249]
+Trigger row (Excel)  : 17251
+Reconstruction error : 0.008221
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 18036
+Attribution score    : 0.004509
+SystemTime           : 2021-09-07 16:37:01.689211
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002694
+  #02  Image                          0.002229
+  #03  IntegrityLevel                 0.001811
+  #04  ParentCommandLine              0.001437
+  #05  ParentImage                    0.001082
+  #06  CurrentDirectory               0.000802
+  #07  Details                        0.000256
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:20:33.388808
+Image        : C:\Windows\System32\rundll32.exe
+CommandLine  : C:\Windows\system32\rundll32.exe C:\Windows\system32\PcaSvc.dll,PcaPatchSdbTask

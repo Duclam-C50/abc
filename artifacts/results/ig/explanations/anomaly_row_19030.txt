@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [19153, 19141, 19028]
+Trigger row (Excel)  : 19030
+Reconstruction error : 0.008509
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 19155
+Attribution score    : 0.004722
+SystemTime           : 2021-09-07 17:00:54.377366
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002703
+  #02  Image                          0.002260
+  #03  IntegrityLevel                 0.001823
+  #04  ParentCommandLine              0.001472
+  #05  ParentImage                    0.001141
+  #06  CurrentDirectory               0.000862
+  #07  Details                        0.000253
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:57:41.432470
+Image        : C:\Windows\System32\gpupdate.exe
+CommandLine  : gpupdate.exe /target:user

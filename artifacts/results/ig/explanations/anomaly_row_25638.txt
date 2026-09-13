@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [26075, 26065, 25636]
+Trigger row (Excel)  : 25638
+Reconstruction error : 0.013406
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 26077
+Attribution score    : 0.005231
+SystemTime           : 2021-09-07 19:29:59.565933
+Image                : C:\Windows\explorer.exe
+CommandLine          : C:\Windows\Explorer.EXE
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.002829
+  #02  CommandLine                    0.002619
+  #03  CurrentDirectory               0.001689
+  #04  IntegrityLevel                 0.001455
+  #05  ParentCommandLine              0.000605
+  #06  ParentImage                    0.000600
+  #07  Details                        0.000249
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 19:21:02.315237
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=utility --utility-sub-type=entity_extraction_service.mojom.Extractor --lang=en-US --service-sandbox-type=entity_extraction --mojo-platform-channel-handle=3300 --field-trial-handle=2156,i,7603474385968389535,5904340047020629471,131072 /prefetch:8

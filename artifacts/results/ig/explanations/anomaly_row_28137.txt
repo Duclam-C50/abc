@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [28191, 28140, 28135]
+Trigger row (Excel)  : 28137
+Reconstruction error : 0.013541
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 28193
+Attribution score    : 0.005525
+SystemTime           : 2021-09-07 20:17:01.080891
+Image                : C:\Windows\explorer.exe
+CommandLine          : C:\Windows\Explorer.EXE
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.002834
+  #02  CommandLine                    0.002616
+  #03  CurrentDirectory               0.001750
+  #04  IntegrityLevel                 0.001490
+  #05  ParentImage                    0.000753
+  #06  ParentCommandLine              0.000646
+  #07  Details                        0.000249
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 20:16:09.362945
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=crashpad-handler "--user-data-dir=C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\Edge\User Data" /prefetch:7 --monitor-self-annotation=ptype=crashpad-handler "--database=C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\Edge\User Data\Crashpad" "--metrics-dir=C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\Edge\User Data" --annotation=IsOfficialBuild=1 --annotation=channel= --annotation=chromium-version=107.0.5304.110 "--annotation=exe=C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --annotation=plat=Win64 "--annotation=prod=Microsoft Edge" --annotation=ver=107.0.1418.56 --initial-client-data=0x100,0x104,0x108,0xdc,0x1a0,0x7ffa302db208,0x7ffa302db218,0x7ffa302db228

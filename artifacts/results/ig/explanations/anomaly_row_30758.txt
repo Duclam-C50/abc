@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 30754
+Trigger row (Excel)  : 30758
+Reconstruction error : 0.004059
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 30756
+Attribution score    : 0.036465
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009773
+  #02  CallTrace                      0.009095
+  #03  IsExecutable                   0.008924
+  #04  PipeName                       0.008673
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 19:13:34.321984
+Image        : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2210.6-0\MpCmdRun.exe
+CommandLine  : "C:\ProgramData\Microsoft\Windows Defender\platform\4.18.2210.6-0\MpCmdRun.exe" SignaturesUpdateService -ScheduleJob -UnmanagedUpdate

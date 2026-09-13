@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 44023]
+Trigger row (Excel)  : 44025
+Reconstruction error : 0.091362
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 3/3
+Row (Excel)          : 44025
+Attribution score    : 0.012729
+SystemTime           : 2021-09-08 01:28:41.663569
+Image                : C:\Users\altinitat.STEFANIA\Downloads\Sysmon\Sysmon64.exe
+CommandLine          : 0
+EventID              : 16
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  EventID_16                     0.018593
+  #02  ParentCommandLine              0.001506
+  #03  EventID_22                     -0.000000
+  #04  EventID_13                     -0.000000
+  #05  EventID_15                     -0.000000
+  #06  EventID_11                     -0.000000
+  #07  EventID_8                      -0.000000
+  #08  EventID_6                      -0.000000
+  #09  EventID_12                     0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 01:28:41.663569
+Image        : C:\Users\altinitat.STEFANIA\Downloads\Sysmon\Sysmon64.exe
+CommandLine  : 0

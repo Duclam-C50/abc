@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [32758, 32756, 32420]
+Trigger row (Excel)  : 32422
+Reconstruction error : 0.010690
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 32760
+Attribution score    : 0.006048
+SystemTime           : 2021-09-07 21:47:56.156838
+Image                : C:\Windows\System32\wininit.exe
+CommandLine          : wininit.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.003481
+  #02  IntegrityLevel                 0.002231
+  #03  Image                          0.001714
+  #04  ParentImage                    0.001707
+  #05  CurrentDirectory               0.000941
+  #06  ParentCommandLine              0.000738
+  #07  Details                        0.000288
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 21:40:05.319865
+Image        : C:\Windows\System32\svchost.exe
+CommandLine  : C:\Windows\system32\svchost.exe -k wsappx -p

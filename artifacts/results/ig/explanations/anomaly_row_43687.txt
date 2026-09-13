@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 43683
+Trigger row (Excel)  : 43687
+Reconstruction error : 0.004678
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 43685
+Attribution score    : 0.036779
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009820
+  #02  CallTrace                      0.009229
+  #03  IsExecutable                   0.008913
+  #04  PipeName                       0.008817
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 22:49:12.293697
+Image        : C:\Windows\System32\MoUsoCoreWorker.exe
+CommandLine  : C:\Windows\System32\mousocoreworker.exe -Embedding

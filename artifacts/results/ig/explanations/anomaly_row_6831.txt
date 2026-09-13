@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [8823, 8817, 6829]
+Trigger row (Excel)  : 6831
+Reconstruction error : 0.014843
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 8825
+Attribution score    : 0.016255
+SystemTime           : 2021-09-07 13:37:03.817673
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.005001
+  #02  IntegrityLevel                 0.004282
+  #03  CurrentDirectory               0.004067
+  #04  CommandLine                    0.003898
+  #05  EventID_1                      0.000832
+  #06  Details                        0.000412
+  #07  ParentCommandLine              0.000248
+  #08  StartModule                    0.000030
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 12:54:33.649410
+Image        : C:\Windows\System32\Speech_OneCore\common\SpeechModelDownload.exe
+CommandLine  : C:\Windows\system32\speech_onecore\common\SpeechModelDownload.exe

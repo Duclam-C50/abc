@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 37630, 37595]
+Trigger row (Excel)  : 37597
+Reconstruction error : 0.065318
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 37632
+Attribution score    : 0.015017
+SystemTime           : 2021-09-07 23:24:26.304468
+Image                : C:\Windows\WinSxS\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.19041.2180_none_7e328fe47c714aab\TiWorker.exe
+CommandLine          : C:\Windows\winsxs\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.19041.2180_none_7e328fe47c714aab\TiWorker.exe -Embedding
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.016257
+  #02  ParentCommandLine              0.006911
+  #03  CommandLine                    0.005996
+  #04  EventID_22                     -0.000000
+  #05  EventID_16                     0.000000
+  #06  EventID_11                     -0.000000
+  #07  EventID_15                     -0.000000
+  #08  EventID_13                     -0.000000
+  #09  EventID_12                     0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:23:42.117229
+Image        : C:\Windows\System32\makecab.exe
+CommandLine  : "C:\Windows\system32\makecab.exe" C:\Windows\Logs\CBS\CbsPersist_20221209095435.log C:\Windows\Logs\CBS\CbsPersist_20221209095435.cab

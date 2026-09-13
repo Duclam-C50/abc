@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 21143
+Trigger row (Excel)  : 21147
+Reconstruction error : 0.002851
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 21145
+Attribution score    : 0.037995
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010161
+  #02  PipeName                       0.009316
+  #03  GrantedAccess                  0.009253
+  #04  CallTrace                      0.009247
+  #05  EventID                        0.000018
+  #06  DestinationPort                0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:33:17.846593
+Image        : C:\Windows\System32\wlrmdr.exe
+CommandLine  :  -c -s 0 -f 0 -t Empty -m Empty -a 0 -u Empty

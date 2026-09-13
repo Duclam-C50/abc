@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [8823, 8817, 6826]
+Trigger row (Excel)  : 6828
+Reconstruction error : 0.014501
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 8825
+Attribution score    : 0.016153
+SystemTime           : 2021-09-07 13:37:03.817673
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.004981
+  #02  IntegrityLevel                 0.004269
+  #03  CurrentDirectory               0.004046
+  #04  CommandLine                    0.003884
+  #05  EventID_1                      0.000824
+  #06  Details                        0.000412
+  #07  ParentCommandLine              0.000231
+  #08  StartModule                    0.000029
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 12:54:15.162056
+Image        : C:\Windows\System32\UsoClient.exe
+CommandLine  : C:\Windows\system32\usoclient.exe StartScan

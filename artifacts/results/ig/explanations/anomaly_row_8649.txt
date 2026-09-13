@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 8651, 8647]
+Trigger row (Excel)  : 8649
+Reconstruction error : 0.008930
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.022183
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.007720
+  #02  CommandLine                    0.007083
+  #03  ParentCommandLine              0.003369
+  #04  StartFunction                  0.002232
+  #05  StartModule                    0.001174
+  #06  Details                        0.000602
+  #07  QueryResults                   0.000007
+  #08  EventID_22                     0.000000
+  #09  EventID_6                      -0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:33:28.621811
+Image        : C:\Windows\System32\WaaSMedicAgent.exe
+CommandLine  : C:\Windows\System32\WaaSMedicAgent.exe bab6279ba9db23a6296ce5826d2fcc48 B27e2m88/kWVJWwN.0.0.0

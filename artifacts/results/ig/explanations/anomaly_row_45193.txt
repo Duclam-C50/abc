@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 45189
+Trigger row (Excel)  : 45193
+Reconstruction error : 0.004354
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 45191
+Attribution score    : 0.035554
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009752
+  #02  CallTrace                      0.008999
+  #03  IsExecutable                   0.008877
+  #04  PipeName                       0.008298
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:14:08.395229
+Image        : C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe
+CommandLine  : 0

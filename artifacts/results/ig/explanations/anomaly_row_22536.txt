@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [22539, 22536, 22534]
+Trigger row (Excel)  : 22536
+Reconstruction error : 0.012123
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 22541
+Attribution score    : 0.007955
+SystemTime           : 2021-09-07 18:13:20.963795
+Image                : C:\Users\altinistef.STEFANIA\Downloads\mimikatz-master (1)\mimikatz-master\x64\mimikatz.exe
+CommandLine          : "C:\Users\altinistef.STEFANIA\Downloads\mimikatz-master (1)\mimikatz-master\x64\mimikatz.exe" 
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  ParentImage                    0.003270
+  #02  CommandLine                    0.002575
+  #03  Image                          0.001853
+  #04  User                           0.000747
+  #05  EventID_1                      0.000609
+  #06  CurrentDirectory               0.000597
+  #07  Details                        0.000394
+  #08  ParentCommandLine              0.000276
+  #09  StartModule                    0.000009
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 18:14:01.026885
+Image        : C:\Windows\System32\HOSTNAME.EXE
+CommandLine  : hostname

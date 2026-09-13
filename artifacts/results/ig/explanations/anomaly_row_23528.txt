@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [25125, 23527, 23526]
+Trigger row (Excel)  : 23528
+Reconstruction error : 0.010572
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 25127
+Attribution score    : 0.010001
+SystemTime           : 2021-09-07 19:09:53.668997
+Image                : C:\Windows\System32\svchost.exe
+CommandLine          : C:\Windows\system32\svchost.exe -k netsvcs -p
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  ParentImage                    0.004260
+  #02  CurrentDirectory               0.002936
+  #03  IntegrityLevel                 0.002612
+  #04  ParentCommandLine              0.002374
+  #05  Details                        0.000394
+  #06  EventID_22                     -0.000000
+  #07  EventID_15                     -0.000000
+  #08  EventID_16                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_4                      0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 18:34:05.355292
+Image        : C:\Windows\System32\WinSAT.exe
+CommandLine  : "C:\Windows\system32\winsat.exe" disk -wsswap

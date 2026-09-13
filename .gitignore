@@ -1,0 +1,31 @@
+﻿# Virtual Environment
+venv/
+env/
+.env
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# Data (Raw large logs ~2.7GB)
+data/train/log_raw/
+data/train/log_csv/
+data/evaluate/log_raw/
+data/evaluate/log_csv/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large SQLite temporary or lock files
+*.db-journal
+*.db-wal

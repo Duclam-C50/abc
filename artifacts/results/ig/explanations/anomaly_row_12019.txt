@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 12015
+Trigger row (Excel)  : 12019
+Reconstruction error : 0.002742
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 12017
+Attribution score    : 0.035335
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009517
+  #02  CallTrace                      0.008987
+  #03  IsExecutable                   0.008752
+  #04  PipeName                       0.008398
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 14:01:34.472494
+Image        : C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{0AF6D023-3964-40E7-AEAD-233A0FE93426}\EDGEMITMP_70894.tmp\setup.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{0AF6D023-3964-40E7-AEAD-233A0FE93426}\EDGEMITMP_70894.tmp\setup.exe" --install-archive="C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{0AF6D023-3964-40E7-AEAD-233A0FE93426}\MicrosoftEdge_X64_108.0.1462.54.exe" --msedgewebview --verbose-logging --do-not-launch-msedge --system-level

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 17572]
+Trigger row (Excel)  : 17574
+Reconstruction error : 0.007285
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.030879
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.010165
+  #02  Signature                      0.009461
+  #03  ParentCommandLine              0.005722
+  #04  StartFunction                  0.003086
+  #05  StartModule                    0.001636
+  #06  Details                        0.000756
+  #07  ParentImage                    0.000070
+  #08  EventID_22                     0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:26:35.287070
+Image        : C:\Windows\SysWOW64\WerFault.exe
+CommandLine  : C:\Windows\SysWOW64\WerFault.exe -u -p 6384 -s 896

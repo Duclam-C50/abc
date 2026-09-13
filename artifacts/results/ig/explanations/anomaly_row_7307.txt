@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [8823, 8817, 7305]
+Trigger row (Excel)  : 7307
+Reconstruction error : 0.017137
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 8825
+Attribution score    : 0.017566
+SystemTime           : 2021-09-07 13:37:03.817673
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.005100
+  #02  IntegrityLevel                 0.004391
+  #03  CommandLine                    0.004163
+  #04  CurrentDirectory               0.003986
+  #05  EventID_1                      0.001242
+  #06  Details                        0.000436
+  #07  ParentCommandLine              0.000403
+  #08  StartModule                    0.000087
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:03:52.451747
+Image        : C:\Windows\System32\sc.exe
+CommandLine  : C:\Windows\system32\sc.exe start wuauserv

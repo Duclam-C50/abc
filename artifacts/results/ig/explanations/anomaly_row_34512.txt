@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 34508
+Trigger row (Excel)  : 34512
+Reconstruction error : 0.003461
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 34510
+Attribution score    : 0.037260
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.009993
+  #02  GrantedAccess                  0.009813
+  #03  PipeName                       0.008813
+  #04  CallTrace                      0.008642
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 20:15:55.368144
+Image        : C:\Windows\System32\drvinst.exe
+CommandLine  : DrvInst.exe "2" "201" "PCI\VEN_80EE&DEV_CAFE&SUBSYS_00000000&REV_00\3&267A616A&0&20" "C:\Windows\INF\oem2.inf" "oem2.inf:5503dd42a9865fae:VBoxGuest_Install:7.0.4.4605:pci\ven_80ee&dev_cafe," "493e1de7b" "0000000000001B58"

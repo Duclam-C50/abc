@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 32085
+Trigger row (Excel)  : 32089
+Reconstruction error : 0.002449
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 32087
+Attribution score    : 0.037043
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010853
+  #02  GrantedAccess                  0.010289
+  #03  PipeName                       0.008053
+  #04  CallTrace                      0.007849
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 19:35:27.494569
+Image        : C:\Program Files\Oracle\VirtualBox Guest Additions\cert\VBoxCertUtil.exe
+CommandLine  : "C:\Program Files\Oracle\VirtualBox Guest Additions\cert\VBoxCertUtil.exe" add-root --add-if-new "C:\Program Files\Oracle\VirtualBox Guest Additions\cert\vbox-sha256-timestamp-root.cer"

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 30940
+Trigger row (Excel)  : 30944
+Reconstruction error : 0.002932
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 30942
+Attribution score    : 0.036946
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010475
+  #02  GrantedAccess                  0.010363
+  #03  PipeName                       0.008118
+  #04  CallTrace                      0.007991
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 19:16:48.342011
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.62\identity_helper.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.62\identity_helper.exe" --type=utility --utility-sub-type=winrt_app_id.mojom.WinrtAppIdService --lang=en-US --service-sandbox-type=none --mojo-platform-channel-handle=4748 --field-trial-handle=2156,i,12222158108474027018,6510204338319972378,131072 /prefetch:8

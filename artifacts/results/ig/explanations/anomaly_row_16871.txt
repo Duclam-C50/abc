@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 16869]
+Trigger row (Excel)  : 16871
+Reconstruction error : 0.009773
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.010281
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.005617
+  #02  CommandLine                    0.002514
+  #03  StartFunction                  0.001104
+  #04  ParentCommandLine              0.000533
+  #05  StartModule                    0.000439
+  #06  Details                        0.000123
+  #07  QueryResults                   0.000021
+  #08  EventID_22                     0.000000
+  #09  EventID_6                      0.000000
+  #10  EventID_5                      0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:12:29.328742
+Image        : C:\Windows\System32\mstsc.exe
+CommandLine  : 0

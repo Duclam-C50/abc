@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [8475, 8463, 8458]
+Trigger row (Excel)  : 8460
+Reconstruction error : 0.011190
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 8477
+Attribution score    : 0.006638
+SystemTime           : 2021-09-07 13:30:15.124994
+Image                : C:\Windows\explorer.exe
+CommandLine          : C:\Windows\Explorer.EXE
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.003264
+  #02  CommandLine                    0.002629
+  #03  CurrentDirectory               0.001881
+  #04  IntegrityLevel                 0.001461
+  #05  ParentImage                    0.000956
+  #06  ParentCommandLine              0.000803
+  #07  Details                        0.000257
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:30:26.861002
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --type=gpu-process --gpu-preferences=UAAAAAAAAADgAAAYAAAAAAAAAAAAAAAAAABgAAAAAAAwAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAASAAAAAAAAAAYAAAAAgAAABAAAAAAAAAAGAAAAAAAAAAQAAAAAAAAAAAAAAAOAAAAEAAAAAAAAAABAAAADgAAAAgAAAAAAAAACAAAAAAAAAA= --mojo-platform-channel-handle=1380 --field-trial-handle=2068,i,8932100729263633893,14835762186447942307,131072 /prefetch:2

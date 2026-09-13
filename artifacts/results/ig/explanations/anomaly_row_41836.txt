@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [43936, 43907, 41834]
+Trigger row (Excel)  : 41836
+Reconstruction error : 0.009062
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 43938
+Attribution score    : 0.003738
+SystemTime           : 2021-09-08 01:26:31.566613
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002638
+  #02  Image                          0.002074
+  #03  IntegrityLevel                 0.001770
+  #04  ParentCommandLine              0.001322
+  #05  ParentImage                    0.000859
+  #06  CurrentDirectory               0.000689
+  #07  Details                        0.000257
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 00:47:40.562761
+Image        : C:\Windows\System32\rundll32.exe
+CommandLine  : rundll32.exe AppXDeploymentExtensions.OneCore.dll,ShellRefresh

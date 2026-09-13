@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 45774
+Trigger row (Excel)  : 45778
+Reconstruction error : 0.011044
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 45776
+Attribution score    : 0.037779
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010354
+  #02  GrantedAccess                  0.009319
+  #03  PipeName                       0.009194
+  #04  CallTrace                      0.008913
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:24:04.141845
+Image        : C:\Windows\System32\DiskSnapshot.exe
+CommandLine  : C:\Windows\system32\disksnapshot.exe -z

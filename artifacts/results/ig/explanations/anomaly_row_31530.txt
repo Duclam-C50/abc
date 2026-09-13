@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [31531, 31530, 31528]
+Trigger row (Excel)  : 31530
+Reconstruction error : 0.011422
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 31533
+Attribution score    : 0.013846
+SystemTime           : 2021-09-07 21:21:57.941129
+Image                : C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.56\elevation_service.exe
+CommandLine          : "C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.56\elevation_service.exe"
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CurrentDirectory               0.006087
+  #02  IntegrityLevel                 0.004953
+  #03  ParentCommandLine              0.001815
+  #04  EventID_1                      0.001194
+  #05  Details                        0.000415
+  #06  StartFunction                  0.000180
+  #07  StartModule                    0.000146
+  #08  Image                          0.000146
+  #09  CommandLine                    0.000102
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 21:22:00.800234
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.56\Installer\setup.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\107.0.1418.56\Installer\setup.exe" --msedge --channel=stable --delete-old-versions --system-level --verbose-logging

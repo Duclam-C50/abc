@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 52859
+Trigger row (Excel)  : 52863
+Reconstruction error : 0.003328
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 52862
+Attribution score    : 0.037414
+SystemTime           : 2021-09-08 01:22:11.069043
+Image                : C:\Windows\system32\svchost.exe
+CommandLine          : 0
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  QueryResults                   0.033704
+  #02  Image                          0.011765
+  #03  QueryName                      0.001221
+  #04  Details                        0.000409
+  #05  EventID                        0.000110
+  #06  QueryStatus                    0.000000
+  #07  IsExecutable                   -0.000000
+  #08  Name                           -0.000000
+  #09  TargetObject                   0.000000
+  #10  EventType                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 01:22:35.901894
+Image        : C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{DC5CBC5A-7F4E-4C49-89D2-0434ED4ECC06}\EDGEMITMP_8F75C.tmp\setup.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{DC5CBC5A-7F4E-4C49-89D2-0434ED4ECC06}\EDGEMITMP_8F75C.tmp\setup.exe" --install-archive="C:\Program Files (x86)\Microsoft\EdgeUpdate\Install\{DC5CBC5A-7F4E-4C49-89D2-0434ED4ECC06}\MicrosoftEdge_X64_107.0.1418.62_107.0.1418.56.exe" --previous-version="107.0.1418.56" --msedge --verbose-logging --do-not-launch-msedge --system-level --channel=stable

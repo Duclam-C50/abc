@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [1141, 1139, 1120]
+Trigger row (Excel)  : 1122
+Reconstruction error : 0.008375
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 1143
+Attribution score    : 0.018498
+SystemTime           : 2021-09-07 11:04:16.697205
+Image                : C:\Windows\System32\userinit.exe
+CommandLine          : C:\Windows\system32\userinit.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.005100
+  #02  CurrentDirectory               0.005028
+  #03  CommandLine                    0.003751
+  #04  IntegrityLevel                 0.002860
+  #05  EventID_1                      0.001498
+  #06  ParentCommandLine              0.000885
+  #07  User                           0.000760
+  #08  Details                        0.000425
+  #09  StartModule                    0.000098
+  #10  StartFunction                  0.000026
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 11:03:28.460051
+Image        : C:\Windows\SysWOW64\runonce.exe
+CommandLine  : C:\Windows\SysWOW64\runonce.exe /Run6432

@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: anomaly-detection
+Version: 1.0.0
+Summary: LSTM Autoencoder for Sysmon Anomaly Detection
+Requires-Python: >=3.9

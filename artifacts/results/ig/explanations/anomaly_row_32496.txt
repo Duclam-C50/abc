@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [32756, 32743, 32494]
+Trigger row (Excel)  : 32496
+Reconstruction error : 0.008455
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 32758
+Attribution score    : 0.004506
+SystemTime           : 2021-09-07 21:47:34.559359
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002714
+  #02  Image                          0.002212
+  #03  IntegrityLevel                 0.001832
+  #04  ParentCommandLine              0.001436
+  #05  ParentImage                    0.001062
+  #06  CurrentDirectory               0.000766
+  #07  Details                        0.000262
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 21:41:37.214140
+Image        : C:\Windows\System32\provtool.exe
+CommandLine  : "C:\Windows\system32\ProvTool.exe" /turn 5 /source LogonIdleTask

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [37828, 37743, 37557]
+Trigger row (Excel)  : 37559
+Reconstruction error : 0.010115
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 37830
+Attribution score    : 0.005353
+SystemTime           : 2021-09-07 23:28:22.080463
+Image                : C:\Windows\explorer.exe
+CommandLine          : C:\Windows\Explorer.EXE
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  ParentImage                    0.002608
+  #02  Image                          0.002123
+  #03  CurrentDirectory               0.001553
+  #04  CommandLine                    0.001174
+  #05  IntegrityLevel                 0.000894
+  #06  ParentCommandLine              0.000659
+  #07  User                           0.000591
+  #08  Details                        0.000276
+  #09  EventID_22                     -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:22:13.534742
+Image        : C:\Windows\System32\wusa.exe
+CommandLine  : wusa  /uninstall /kb:5017022

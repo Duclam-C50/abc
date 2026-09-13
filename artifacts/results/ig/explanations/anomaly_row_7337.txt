@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [8823, 8817, 7335]
+Trigger row (Excel)  : 7337
+Reconstruction error : 0.017589
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 8825
+Attribution score    : 0.017484
+SystemTime           : 2021-09-07 13:37:03.817673
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.005142
+  #02  IntegrityLevel                 0.004345
+  #03  CommandLine                    0.004155
+  #04  CurrentDirectory               0.003958
+  #05  EventID_1                      0.001222
+  #06  Details                        0.000436
+  #07  ParentCommandLine              0.000382
+  #08  StartModule                    0.000082
+  #09  EventID_6                      -0.000000
+  #10  EventID_22                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:04:16.082580
+Image        : C:\Windows\System32\taskhostw.exe
+CommandLine  : taskhostw.exe NGCKeyPregen

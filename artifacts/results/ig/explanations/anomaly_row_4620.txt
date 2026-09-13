@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 4616
+Trigger row (Excel)  : 4620
+Reconstruction error : 0.002602
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 4619
+Attribution score    : 0.034246
+SystemTime           : 2021-09-07 11:58:03.141883
+Image                : C:\Windows\system32\lsass.exe
+CommandLine          : 0
+EventID              : 3
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.015689
+  #02  CommandLine                    0.004619
+  #03  QueryResults                   0.003937
+  #04  ParentCommandLine              0.003359
+  #05  StartFunction                  0.001736
+  #06  StartModule                    0.001606
+  #07  Signature                      0.001338
+  #08  User                           0.001137
+  #09  EventID                        0.000717
+  #10  Details                        0.000334
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 11:57:40.886922
+Image        : C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\OneDrive\22.248.1127.0001\Microsoft.SharePoint.exe
+CommandLine  : 0

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 39162]
+Trigger row (Excel)  : 39164
+Reconstruction error : 0.024159
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.029512
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.009878
+  #02  Signature                      0.009040
+  #03  ParentCommandLine              0.005282
+  #04  StartFunction                  0.002901
+  #05  StartModule                    0.001554
+  #06  Details                        0.000820
+  #07  ParentImage                    0.000044
+  #08  EventID_22                     0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:55:12.360347
+Image        : C:\Windows\SysWOW64\whoami.exe
+CommandLine  : whoami  /groups 

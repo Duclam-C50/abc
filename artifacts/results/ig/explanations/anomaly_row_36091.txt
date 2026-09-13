@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 36087
+Trigger row (Excel)  : 36091
+Reconstruction error : 0.003285
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 36089
+Attribution score    : 0.037019
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.009977
+  #02  GrantedAccess                  0.009929
+  #03  CallTrace                      0.008697
+  #04  PipeName                       0.008417
+  #05  DestinationPort                0.000000
+  #06  SourcePort                     0.000000
+  #07  QueryResults                   0.000000
+  #08  QueryName                      -0.000000
+  #09  Signed                         -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 20:42:09.362662
+Image        : C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2210.6-0\MsMpEng.exe
+CommandLine  : "C:\ProgramData\Microsoft\Windows Defender\platform\4.18.2210.6-0\MsMpEng.exe"

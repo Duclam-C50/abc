@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [16509, 15271, 11626]
+Trigger row (Excel)  : 11628
+Reconstruction error : 0.011585
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 16511
+Attribution score    : 0.011427
+SystemTime           : 2021-09-07 16:03:15.886753
+Image                : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine          : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start /prefetch:5
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  ParentImage                    0.004935
+  #02  CurrentDirectory               0.004026
+  #03  IntegrityLevel                 0.002001
+  #04  ParentCommandLine              0.001501
+  #05  EventID_1                      0.000408
+  #06  Image                          0.000248
+  #07  CommandLine                    0.000200
+  #08  Details                        0.000180
+  #09  StartModule                    0.000025
+  #10  User                           0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 14:36:00.115632
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window /prefetch:5

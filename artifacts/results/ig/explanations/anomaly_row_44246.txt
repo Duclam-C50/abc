@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 44242
+Trigger row (Excel)  : 44246
+Reconstruction error : 0.004183
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 44244
+Attribution score    : 0.037499
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010228
+  #02  GrantedAccess                  0.009605
+  #03  PipeName                       0.008921
+  #04  CallTrace                      0.008746
+  #05  DestinationPort                0.000000
+  #06  Signed                         -0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 22:58:52.926164
+Image        : C:\Windows\servicing\TrustedInstaller.exe
+CommandLine  : C:\Windows\servicing\TrustedInstaller.exe

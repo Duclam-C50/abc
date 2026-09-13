@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 8394]
+Trigger row (Excel)  : 8396
+Reconstruction error : 0.019980
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.028377
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.009219
+  #02  Signature                      0.008920
+  #03  ParentCommandLine              0.004990
+  #04  StartFunction                  0.002923
+  #05  StartModule                    0.001598
+  #06  Details                        0.000687
+  #07  ParentImage                    0.000049
+  #08  EventID_22                     0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:28:29.363427
+Image        : C:\Windows\ImmersiveControlPanel\SystemSettings.exe
+CommandLine  : "C:\Windows\ImmersiveControlPanel\SystemSettings.exe" -ServerName:microsoft.windows.immersivecontrolpanel

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 3759]
+Trigger row (Excel)  : 3761
+Reconstruction error : 0.009010
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.025092
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.008220
+  #02  CommandLine                    0.007733
+  #03  ParentCommandLine              0.004815
+  #04  StartFunction                  0.002668
+  #05  StartModule                    0.001365
+  #06  Details                        0.000228
+  #07  ParentImage                    0.000092
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 11:57:29.375530
+Image        : C:\Users\altinistef.STEFANIA\AppData\Local\Microsoft\EdgeUpdate\MicrosoftEdgeUpdate.exe
+CommandLine  : 0

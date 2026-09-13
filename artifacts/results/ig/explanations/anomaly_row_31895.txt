@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 31895, 31893]
+Trigger row (Excel)  : 31895
+Reconstruction error : 0.009729
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.021253
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Signature                      0.007593
+  #02  CommandLine                    0.006656
+  #03  ParentCommandLine              0.003145
+  #04  StartFunction                  0.002173
+  #05  StartModule                    0.001141
+  #06  Details                        0.000543
+  #07  QueryResults                   0.000006
+  #08  EventID_22                     0.000000
+  #09  EventID_6                      -0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 21:29:20.189667
+Image        : C:\Windows\System32\taskhostw.exe
+CommandLine  : taskhostw.exe ExploitGuardPolicy

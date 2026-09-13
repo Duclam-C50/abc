@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [26075, 26065, 25646]
+Trigger row (Excel)  : 25648
+Reconstruction error : 0.016064
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 26077
+Attribution score    : 0.004793
+SystemTime           : 2021-09-07 19:29:59.565933
+Image                : C:\Windows\explorer.exe
+CommandLine          : C:\Windows\Explorer.EXE
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.002832
+  #02  CommandLine                    0.002630
+  #03  CurrentDirectory               0.001618
+  #04  IntegrityLevel                 0.001428
+  #05  ParentCommandLine              0.000573
+  #06  ParentImage                    0.000335
+  #07  Details                        0.000271
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 19:21:52.061397
+Image        : C:\Users\altinistef.STEFANIA\Downloads\windows_11_free_upgrade.exe
+CommandLine  : "C:\Users\altinistef.STEFANIA\Downloads\windows_11_free_upgrade.exe" 

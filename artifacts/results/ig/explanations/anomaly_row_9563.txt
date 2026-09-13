@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 9559
+Trigger row (Excel)  : 9563
+Reconstruction error : 0.003747
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 9562
+Attribution score    : 0.066111
+SystemTime           : 2021-09-07 13:20:04.267228
+Image                : C:\Windows\system32\lsass.exe
+CommandLine          : 0
+EventID              : 22
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.024034
+  #02  CommandLine                    0.013182
+  #03  ParentCommandLine              0.008273
+  #04  Signature                      0.005852
+  #05  StartFunction                  0.004993
+  #06  User                           0.003714
+  #07  StartModule                    0.003596
+  #08  QueryResults                   0.002338
+  #09  EventID                        0.001787
+  #10  Details                        0.000398
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:20:18.015992
+Image        : C:\Windows\system32\svchost.exe
+CommandLine  : 0

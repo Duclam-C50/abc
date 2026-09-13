@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 7187]
+Trigger row (Excel)  : 7189
+Reconstruction error : 0.015012
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.026678
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.009063
+  #02  Signature                      0.007677
+  #03  ParentCommandLine              0.005105
+  #04  StartFunction                  0.002723
+  #05  StartModule                    0.001496
+  #06  Details                        0.000553
+  #07  ParentImage                    0.000086
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 13:00:37.507140
+Image        : C:\Windows\system32\CompatTelRunner.exe
+CommandLine  : 0

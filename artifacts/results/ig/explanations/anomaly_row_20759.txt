@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 20755
+Trigger row (Excel)  : 20759
+Reconstruction error : 0.019034
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 20757
+Attribution score    : 0.038292
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010044
+  #02  PipeName                       0.009530
+  #03  GrantedAccess                  0.009521
+  #04  CallTrace                      0.009327
+  #05  DestinationPort                0.000000
+  #06  Signed                         0.000000
+  #07  QueryResults                   -0.000000
+  #08  QueryName                      -0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 16:26:46.063385
+Image        : C:\Windows\system32\LogonUI.exe
+CommandLine  : 0

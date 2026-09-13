@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [39942, 39906, 39905]
+Trigger row (Excel)  : 39907
+Reconstruction error : 0.027746
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 39944
+Attribution score    : 0.014531
+SystemTime           : 2021-09-08 00:11:02.532484
+Image                : C:\Users\altinitat.STEFANIA\Downloads\windows_11_free_upgrade.exe
+CommandLine          : "C:\Users\altinitat.STEFANIA\Downloads\windows_11_free_upgrade.exe" 
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  EventID_1                      0.004016
+  #02  User                           0.003471
+  #03  IntegrityLevel                 0.002610
+  #04  Signature                      0.002493
+  #05  StartFunction                  0.000904
+  #06  StartModule                    0.000530
+  #07  Details                        0.000499
+  #08  ParentCommandLine              0.000078
+  #09  QueryResults                   0.000006
+  #10  EventID_6                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 00:10:10.154263
+Image        : C:\Windows\SysWOW64\whoami.exe
+CommandLine  : whoami  /groups 

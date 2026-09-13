@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 52779
+Trigger row (Excel)  : 52783
+Reconstruction error : 0.006307
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 52781
+Attribution score    : 0.038085
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  IsExecutable                   0.010565
+  #02  PipeName                       0.009448
+  #03  CallTrace                      0.008711
+  #04  GrantedAccess                  0.008694
+  #05  EventID                        0.000666
+  #06  QueryStatus                    0.000000
+  #07  QueryName                      0.000000
+  #08  QueryResults                   0.000000
+  #09  Details                        -0.000000
+  #10  Configuration                  0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-08 01:20:24.879945
+Image        : C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+CommandLine  : 0

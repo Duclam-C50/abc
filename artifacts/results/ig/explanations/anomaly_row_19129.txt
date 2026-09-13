@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [19153, 19144, 19127]
+Trigger row (Excel)  : 19129
+Reconstruction error : 0.008536
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 19155
+Attribution score    : 0.003327
+SystemTime           : 2021-09-07 17:00:54.377366
+Image                : C:\Windows\System32\services.exe
+CommandLine          : C:\Windows\system32\services.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.002617
+  #02  Image                          0.002026
+  #03  IntegrityLevel                 0.001747
+  #04  ParentCommandLine              0.001245
+  #05  ParentImage                    0.000709
+  #06  CurrentDirectory               0.000599
+  #07  Details                        0.000255
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 17:00:05.591966
+Image        : C:\Windows\System32\dasHost.exe
+CommandLine  : dashost.exe {de4a2ffb-05a6-4f21-949e534a1e7f03c0}

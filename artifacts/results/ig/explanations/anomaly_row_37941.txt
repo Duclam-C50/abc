@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, -1, 37939]
+Trigger row (Excel)  : 37941
+Reconstruction error : 0.007115
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : N/A
+Attribution score    : 0.029288
+SystemTime           : 0
+Image                : 0
+CommandLine          : 0
+EventID              : 0
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.009814
+  #02  Signature                      0.008966
+  #03  ParentCommandLine              0.005394
+  #04  StartFunction                  0.002845
+  #05  StartModule                    0.001498
+  #06  Details                        0.000726
+  #07  ParentImage                    0.000058
+  #08  EventID_22                     -0.000000
+  #09  EventID_5                      -0.000000
+  #10  EventID_16                     -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:30:29.940157
+Image        : C:\Windows\system32\wevtutil.exe
+CommandLine  : 0

@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 24603
+Trigger row (Excel)  : 24607
+Reconstruction error : 0.003701
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 1/3
+Row (Excel)          : 24605
+Attribution score    : 0.035896
+SystemTime           : SystemTime
+Image                : Image
+CommandLine          : CommandLine
+EventID              : EventID
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  GrantedAccess                  0.009700
+  #02  CallTrace                      0.008867
+  #03  IsExecutable                   0.008691
+  #04  PipeName                       0.008637
+  #05  QueryStatus                    0.000001
+  #06  DestinationPort                0.000000
+  #07  SourcePort                     0.000000
+  #08  QueryResults                   0.000000
+  #09  QueryName                      0.000000
+  #10  Configuration                  -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 17:31:10.691209
+Image        : C:\Windows\System32\rundll32.exe
+CommandLine  : rundll32.exe C:\Windows\system32\davclnt.dll,DavSetCookie live.sysinternals.com http://live.sysinternals.com/tools

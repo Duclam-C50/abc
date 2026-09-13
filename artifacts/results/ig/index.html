@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER DEFENSE SOC // Sysmon Behavioral Threat Hunting Console</title>
+    <!-- Bootstrap 5 Dark Theme CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Orbitron, Rajdhani, JetBrains Mono, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-canvas: #050811;
+            --bg-panel: rgba(11, 18, 33, 0.95);
+            --bg-panel-alt: rgba(15, 23, 42, 0.8);
+            --border-cyber: rgba(0, 242, 254, 0.2);
+            --border-cyber-glow: rgba(0, 242, 254, 0.45);
+            --border-danger-glow: rgba(255, 42, 95, 0.5);
+            --neon-cyan: #00f2fe;
+            --neon-green: #00f5a0;
+            --neon-red: #ff2a5f;
+            --neon-amber: #ffb800;
+            --neon-purple: #b537f2;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --font-tactical: 'Chakra Petch', 'Rajdhani', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(255, 42, 95, 0.04) 0%, transparent 40%),
+                linear-gradient(rgba(0, 242, 254, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            letter-spacing: 0.2px;
+        }
+
+        /* Tactical Navbar */
+        .soc-navbar {
+            background: rgba(8, 13, 26, 0.95) !important;
+            border-bottom: 1px solid var(--border-cyber);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+        }
+        .soc-brand {
+            font-family: var(--font-tactical);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--neon-cyan) !important;
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
+            font-size: 1.25rem;
+        }
+
+        /* Pulse Radar Dot */
+        .pulse-indicator {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background-color: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: radar-pulse 2s infinite ease-out;
+            margin-right: 6px;
+        }
+        @keyframes radar-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 245, 160, 0.8); }
+            70% { box-shadow: 0 0 0 9px rgba(0, 245, 160, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 245, 160, 0); }
+        }
+
+        .pulse-threat {
+            animation: threat-pulse 1.8s infinite ease-out;
+        }
+        @keyframes threat-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.8); }
+            70% { box-shadow: 0 0 0 8px rgba(255, 42, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
+        }
+
+        /* Cyber HUD Cards */
+        .card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-cyber);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            border-color: var(--border-cyber-glow);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.12);
+        }
+        .card-header {
+            background-color: rgba(14, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-cyber);
+            font-family: var(--font-tactical);
+            font-weight: 600;
+            letter-spacing: 0.8px;
+        }
+
+        /* Metric HUD */
+        .metric-card {
+            position: relative;
+            overflow: hidden;
+            border-left: 3px solid var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(11, 18, 33, 0.95), rgba(15, 23, 42, 0.7));
+        }
+        .metric-card.danger { border-left-color: var(--neon-red); }
+        .metric-card.success { border-left-color: var(--neon-green); }
+        .metric-card.warning { border-left-color: var(--neon-amber); }
+
+        .metric-value {
+            font-family: var(--font-tactical);
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+        .metric-title {
+            font-family: var(--font-tactical);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        /* Cyber Table */
+        .table {
+            color: var(--text-main);
+            margin-bottom: 0;
+            font-size: 0.88rem;
+        }
+        .table-dark {
+            background-color: transparent !important;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(15, 23, 42, 0.5) !important;
+        }
+        .table-hover tbody tr {
+            transition: all 0.15s ease;
+        }
+        .table-hover tbody tr:hover {
+            background-color: rgba(0, 242, 254, 0.08) !important;
+            border-left: 3px solid var(--neon-cyan);
+        }
+        .table-hover tbody tr.active-row {
+            background-color: rgba(0, 242, 254, 0.14) !important;
+            border-left: 3px solid var(--neon-cyan);
+        }
+        th {
+            font-family: var(--font-tactical);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            border-bottom: 1px solid var(--border-cyber) !important;
+            padding: 10px 12px !important;
+        }
+        td {
+            vertical-align: middle;
+            padding: 10px 12px !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+        /* Cyber Badges */
+        .badge-tactic {
+            font-family: var(--font-tactical);
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .badge-host {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding: 2px 6px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            color: var(--neon-cyan);
+            border-radius: 4px;
+        }
+
+        /* Scrollable Panels */
+        .scrollable-panel {
+            height: calc(100vh - 250px);
+            min-height: 540px;
+            overflow-y: auto;
+        }
+        .scrollable-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-panel::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .scrollable-panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 242, 254, 0.3);
+            border-radius: 3px;
+        }
+        .scrollable-panel::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+
+        /* Terminal Window Styling for Details */
+        .terminal-header {
+            background: #090d16;
+            border-bottom: 1px solid var(--border-cyber);
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .terminal-dot.close { background-color: #ff5f56; }
+        .terminal-dot.min { background-color: #ffbd2e; }
+        .terminal-dot.max { background-color: #27c93f; }
+
+        /* Process Lineage Hierarchy */
+        .lineage-node {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 14px;
+            border-left: 2px solid var(--border-cyber);
+            transition: all 0.2s ease;
+        }
+        .lineage-node::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+        .lineage-node.level-0 { border-left-color: var(--neon-purple); }
+        .lineage-node.level-0::before { background-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
+        .lineage-node.level-1 { border-left-color: var(--neon-amber); }
+        .lineage-node.level-1::before { background-color: var(--neon-amber); box-shadow: 0 0 8px var(--neon-amber); }
+        .lineage-node.level-2 { border-left-color: var(--border-cyber); }
+
+        .details-wrapper {
+            background-color: rgba(9, 14, 26, 0.9) !important;
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-top: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details-table th {
+            color: #38bdf8 !important;
+            font-family: var(--font-mono);
+            font-weight: 500;
+            width: 32%;
+            font-size: 0.78rem;
+            padding: 4px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+        .details-table td {
+            color: #f1f5f9 !important;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            padding: 4px 8px;
+            word-break: break-all;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+
+
+        /* Process Tree Styles */
+        .tree-node {
+            background-color: rgba(11, 18, 33, 0.9);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            font-family: var(--font-mono);
+        }
+        .tree-node.is-malicious {
+            border-left-color: var(--neon-red) !important;
+            background-color: rgba(40, 10, 20, 0.8) !important;
+        }
+        .tree-children {
+            margin-left: 20px;
+            padding-left: 12px;
+            border-left: 2px dashed rgba(0, 242, 254, 0.2);
+        }
+        .tree-event-badge {
+            font-size: 0.78rem;
+            padding: 4px 8px;
+            margin: 4px 0;
+            background-color: rgba(6, 10, 19, 0.9);
+            border-radius: 4px;
+            border-left: 3px solid #666;
+            display: block;
+        }
+        .tree-event-badge.net { border-left-color: #0288d1; color: #81d4fa; }
+        .tree-event-badge.file { border-left-color: #e65100; color: #ffcc80; }
+        .tree-event-badge.dns { border-left-color: #7b1fa2; color: #e1bee7; }
+
+        /* Form Inputs */
+        .form-control, .form-select {
+            background-color: #080d19 !important;
+            border-color: rgba(0, 242, 254, 0.25) !important;
+            color: #f1f5f9 !important;
+            font-size: 0.85rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--neon-cyan) !important;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3) !important;
+        }
+
+        /* HIGH-CONTRAST CYBERSECURITY ACCESSIBILITY OVERRIDES */
+        .text-muted, .text-secondary, .text-dim, .text-white-50 {
+            color: #cbd5e1 !important;
+        }
+        .small.text-muted, .small.text-secondary {
+            color: #cbd5e1 !important;
+        }
+        th {
+            color: #38bdf8 !important;
+            font-weight: 700 !important;
+            border-bottom: 2px solid rgba(0, 242, 254, 0.4) !important;
+        }
+        .form-control, .form-select {
+            background-color: #0b1221 !important;
+            border-color: rgba(0, 242, 254, 0.4) !important;
+            color: #ffffff !important;
+        }
+        .form-control::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+        }
+        select option, option {
+            background-color: #0b1221 !important;
+            color: #ffffff !important;
+        }
+        .details-table th {
+            color: #38bdf8 !important;
+            font-weight: 600 !important;
+        }
+        .details-table td {
+            color: #ffffff !important;
+        }
+        .soc-control-bar {
+            background: rgba(14, 23, 42, 0.95) !important;
+            border-bottom: 1px solid rgba(0, 242, 254, 0.25) !important;
+        }
+        .tree-node summary {
+            color: #ffffff !important;
+        }
+        .tree-meta-info {
+            color: #cbd5e1 !important;
+        }
+        .text-arrow {
+            color: #ffb800 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP SOC BANNER & NAVIGATION -->
+    <nav class="navbar navbar-expand-lg soc-navbar py-2">
+        <div class="container-fluid px-3">
+            <div class="d-flex align-items-center">
+                <span class="soc-brand me-3">🛡️ CYBER DEFENSE SOC // THREAT HUNTING</span>
+                <span class="badge bg-dark border border-secondary text-light font-monospace small px-2 py-1">
+                    <span class="pulse-indicator"></span>LIVE SENSOR TELEMETRY
+                </span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-danger text-white border border-danger pulse-threat px-3 py-1 font-monospace" style="font-size:0.75rem;">
+                    DETECTED ATTACKS (LABEL 1 & 2: 61,297 CHUỖI)
+                </span>
+                <span class="badge bg-dark border border-info text-info font-monospace px-2 py-1" id="device-label">
+                    8 MONITORED HOSTS (LMD-2023)
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid px-3 pt-3">
+        <!-- TOP SOC METRICS HUD -->
+                <div class="row g-2 mb-3">
+                    <div class="col-md-3">
+                        <div class="card p-3 metric-card danger">
+                            <div class="metric-title">🎯 Tỷ lệ phát hiện (Recall)</div>
+                            <div class="metric-value text-danger" id="recall-val">94.0%</div>
+                            <div class="small text-muted font-monospace">64,219 / 68,308 Chuỗi độc hại</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 metric-card success">
+                            <div class="metric-title">🎯 Độ chính xác cảnh báo (Precision)</div>
+                            <div class="metric-value text-success" id="precision-val">90.2%</div>
+                            <div class="small text-muted font-monospace">F1-Score: 0.921 (FP Cực Thấp)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 metric-card warning">
+                            <div class="metric-title">⚡ Ngưỡng phân tách AI (p80)</div>
+                            <div class="metric-value text-warning" id="threshold-val">0.0082</div>
+                            <div class="small text-muted font-monospace" id="global-thr-text">Adaptive Anomaly Baseline</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card p-3 metric-card">
+                            <div class="metric-title">🧠 Hiệu năng phân biệt (ROC-AUC)</div>
+                            <div class="metric-value text-info" id="auc-val">84.18%</div>
+                            <div class="small text-muted font-monospace">LSTM Autoencoder Engine</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <!-- LEFT COLUMN: THREAT TABLE -->
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center py-2">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-danger fw-bold">🚨 DETECTED ANOMALOUS THREATS</span>
+                                    <span class="badge bg-danger ms-2 font-monospace" id="anom-count-badge">0 items</span>
+                                </div>
+                            </div>
+                            
+                            <!-- SOC CONTROL BAR: Search, Host Filter, Display Limit -->
+                            <div class="p-2 soc-control-bar">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-md-5">
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-dark border-secondary text-info">🔍</span>
+                                            <input type="text" id="proc-search-input" class="form-control form-control-sm" placeholder="Tìm tiến trình, cmd, PID..." oninput="filterAnomaliesTable()">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="device-filter" class="form-select form-select-sm" onchange="filterAnomaliesTable()">
+                                            <option value="all" selected>🌐 Tất cả thiết bị (8 máy)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select id="display-limit-select" class="form-select form-select-sm" onchange="changeLimit()">
+                                            <option value="50" selected>50 mục / trang</option>
+                                            <option value="100">100 mục / trang</option>
+                                            <option value="200">200 mục / trang</option>
+                                            <option value="500">500 mục / trang</option>
+                                            <option value="1000">1000 mục / trang</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table Body -->
+                            <div class="card-body p-0 scrollable-panel" style="max-height: calc(100vh - 350px);">
+                                <table class="table table-dark table-striped table-hover mb-0" id="anomalies-table">
+                                    <thead id="anomalies-thead">
+                                        <tr>
+                                            <th style="width: 7%;">ID</th>
+                                            <th style="width: 48%;">Tiến trình & Thiết bị</th>
+                                            <th style="width: 13%;">Chuỗi</th>
+                                            <th style="width: 14%;">Max Loss</th>
+                                            <th style="width: 18%;">Mốc thời gian</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="5" class="text-center py-5 text-muted font-monospace">
+                                                ⏳ Đang tải telemetry dữ liệu tấn công từ CSDL...
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination Controls Bar -->
+                            <div class="d-flex justify-content-between align-items-center p-2 border-top border-secondary" id="pagination-bar" style="background: rgba(11, 18, 33, 0.95);">
+                                <div class="small text-muted font-monospace" id="pagination-info" style="font-size: 0.75rem;">
+                                    Đang kết nối CSDL SQLite...
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-secondary font-monospace" id="btn-first-page" onclick="changePage(1)" title="Trang đầu">⏮️</button>
+                                    <button class="btn btn-outline-secondary font-monospace" id="btn-prev-page" onclick="changePage(currentPage - 1)" title="Trang trước">◀️ Trước</button>
+                                    <span class="btn btn-dark border-secondary text-info font-monospace fw-bold" id="current-page-display" style="font-size: 0.75rem;">Trang 1 / 1</span>
+                                    <button class="btn btn-outline-secondary font-monospace" id="btn-next-page" onclick="changePage(currentPage + 1)" title="Trang sau">Sau ▶️</button>
+                                    <button class="btn btn-outline-secondary font-monospace" id="btn-last-page" onclick="changePage(totalPages)" title="Trang cuối">⏭️</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: FORENSIC INVESTIGATION & LINEAGE -->
+                    <div class="col-md-5">
+                        <div class="card" id="details-card" style="display: none;">
+                            <div class="terminal-header">
+                                <div class="d-flex align-items-center">
+                                    <span class="terminal-dot close"></span>
+                                    <span class="terminal-dot min"></span>
+                                    <span class="terminal-dot max"></span>
+                                    <span class="font-monospace text-info small ms-2 fw-bold">FORENSIC TELEMETRY TRACE</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-1">
+                                    <button class="btn btn-xs btn-outline-info py-0 px-2 font-monospace" id="btn-quick-tree" style="font-size:0.72rem;" onclick="toggleLineageView('tree')" title="Mở cây phả hệ liên quan">
+                                        🌳 Cây phả hệ
+                                    </button>
+                                    <span id="computer-badge" class="badge-host">💻 Host</span>
+                                    <span id="excel-row-badge" class="badge bg-primary font-monospace" style="font-size:0.7rem;">Row: --</span>
+                                    <span id="detail-label-badge" class="badge bg-danger font-monospace" style="font-size:0.7rem;">Label 1</span>
+                                </div>
+                            </div>
+
+                            <div class="card-body scrollable-panel pt-2">
+                                <!-- Feature Attribution (Integrated Gradients) -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="text-info text-uppercase font-monospace mb-0" style="font-size: 0.8rem;">
+                                        ⚡ ĐẶC TRƯNG ĐÓNG GÓP BẤT THƯỜNG (INTEGRATED GRADIENTS)
+                                    </h6>
+                                    <span class="badge bg-dark border border-secondary text-muted" style="font-size:0.65rem;">ATTRIBUTION SCORES</span>
+                                </div>
+                                <div style="height: 220px; position: relative;" class="mb-3 p-2 rounded" style="background: rgba(0, 0, 0, 0.2);">
+                                    <canvas id="attribution-chart"></canvas>
+                                </div>
+
+                                <!-- Lineage & Tree Header with View Switcher -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="text-info text-uppercase font-monospace mb-0" id="lineage-view-title" style="font-size: 0.8rem;">
+                                        🔬 PHẢ HỆ TIẾN TRÌNH & HÀNH VI (PROCESS TELEMETRY)
+                                    </h6>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-sm btn-info py-0 px-2 font-monospace" id="btn-view-steps" style="font-size:0.7rem;" onclick="toggleLineageView('steps')">
+                                            📋 Chuỗi 3 bước
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-info py-0 px-2 font-monospace" id="btn-view-tree" style="font-size:0.7rem;" onclick="toggleLineageView('tree')">
+                                            🌳 Cây phả hệ
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="lineage-container">
+                                    <!-- Populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Select Placeholder -->
+                        <div class="card p-5 text-center text-muted scrollable-panel" id="select-placeholder">
+                            <div class="my-auto">
+                                <div class="fs-1 mb-3 text-info">🛡️</div>
+                                <h5 class="text-light font-monospace">SOC FORENSIC ANALYZER</h5>
+                                <p class="small text-dim">Chọn một chuỗi bất thường từ bảng bên trái để phân tích nguyên nhân Integrated Gradients và truy vết toàn bộ hành vi tiến trình.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Logic -->
+    <script>
+        let anomaliesData = [];
+        let chartInstance = null;
+        let selectedAnomalyItem = null;
+        let rawProcessTreeData = [];
+        let isProcessTreeLoaded = false;
+        let currentViewMode = 'all'; // flat view for individual sequences
+        let currentLineageView = 'steps'; // 'steps' or 'tree'
+        let cachedRelatedTreeData = null;
+        let tableSearchQuery = '';
+
+        // Helper: Format Time
+        function formatTime(t) {
+            if (!t || t === "N/A" || t === "0" || t === "-") return "";
+            if (typeof t !== "string") t = String(t);
+            if (t.includes("T")) {
+                const parts = t.replace("Z", "").split("T");
+                const date = parts[0];
+                const timePart = parts[1] || "";
+                const time = timePart.split(".")[0];
+                const ms = timePart.split(".")[1] ? "." + timePart.split(".")[1].substring(0, 3) : "";
+                return `${date} ${time}${ms}`;
+            }
+            return t;
+        }
+
+        // Helper: Basename
+        function getBasename(path) {
+            if (!path || path === "N/A" || path === "0" || path === "-") return "N/A";
+            return path.split('\\').pop().split('/').pop();
+        }
+
+        // Helper: Label Badge (Hỗ trợ Label 0: Bình thường, Label 1: Độc hại #1, Label 2: Độc hại #2)
+        function getLabelBadge(label) {
+            const lbl = parseInt(label);
+            if (lbl === 2) {
+                return `<span class="badge text-white font-monospace" style="background:#9333ea; font-size:0.68rem;">🟣 Label 2 (Độc hại)</span>`;
+            } else if (lbl === 1) {
+                return `<span class="badge bg-danger text-white font-monospace" style="font-size:0.68rem;">🔴 Label 1 (Độc hại)</span>`;
+            }
+            return `<span class="badge bg-success text-white font-monospace" style="font-size:0.68rem;">🟢 Label 0 (Bình thường)</span>`;
+        }
+
+        function getEventName(id) {
+            const idNum = parseInt(id);
+            switch(idNum) {
+                case 1: return "Process Creation [EID 1]";
+                case 3: return "Network Connect [EID 3]";
+                case 5: return "Process Terminated [EID 5]";
+                case 7: return "Image Loaded [EID 7]";
+                case 10: return "Process Access [EID 10]";
+                case 11: return "File Create [EID 11]";
+                case 12: return "Registry Create/Delete [EID 12]";
+                case 13: return "Registry Value Set [EID 13]";
+                case 22: return "DNS Query [EID 22]";
+                default: return "Sysmon Event " + id;
+            }
+        }
+
+        function getActionSummary(log) {
+            if (!log) return "";
+            const eid = parseInt(log.EventID);
+            if (eid === 3) return "Net: " + (log.DestinationIp || log.DestinationHostname || "Conn");
+            if (eid === 11) return "File: " + getBasename(log.TargetFilename || "Create");
+            if (eid === 12 || eid === 13) return "Reg: " + getBasename(log.TargetObject || "Set");
+            if (eid === 22) return "DNS: " + (log.QueryName || "Query");
+            if (eid === 7) return "Dll: " + getBasename(log.ImageLoaded || "Load");
+            return getEventName(eid);
+        }
+
+        // Fetch Metrics with timestamp to bypass browser cache
+        fetch('/api/eval?t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                if (data.auc !== undefined) {
+                    document.getElementById('auc-val').innerText = (data.auc * 100).toFixed(2) + '%';
+                }
+                if (data.threshold !== undefined || data.global_threshold !== undefined) {
+                    const thr = data.threshold !== undefined ? data.threshold : data.global_threshold;
+                    document.getElementById('threshold-val').innerText = Number(thr).toFixed(4);
+                }
+            })
+            .catch(err => console.warn("Could not load /api/eval:", err));
+
+        let currentPage = 1;
+        let totalPages = 1;
+        let currentLimit = 50;
+        let totalRecords = 0;
+        let searchDebounceTimer = null;
+
+        // Fetch Metrics with timestamp to bypass browser cache
+        fetch('/api/eval?t=' + Date.now())
+            .then(res => res.json())
+            .then(data => {
+                if (data.auc !== undefined) {
+                    document.getElementById('auc-val').innerText = (data.auc * 100).toFixed(2) + '%';
+                }
+                if (data.threshold !== undefined || data.global_threshold !== undefined) {
+                    const thr = data.threshold !== undefined ? data.threshold : data.global_threshold;
+                    document.getElementById('threshold-val').innerText = Number(thr).toFixed(4);
+                }
+            })
+            .catch(err => console.warn("Could not load /api/eval:", err));
+
+        // Load devices and anomalies from SQLite database on startup
+        loadDevices();
+        loadAnomalies(1);
+
+        function loadDevices() {
+            fetch('/api/devices?t=' + Date.now())
+                .then(res => res.json())
+                .then(devs => {
+                    const devSelect = document.getElementById('device-filter');
+                    if (!devSelect) return;
+                    const currentVal = devSelect.value;
+                    devSelect.innerHTML = `<option value="all">🌐 Tất cả thiết bị (${devs.length} máy)</option>`;
+                    devs.forEach(d => {
+                        const opt = document.createElement('option');
+                        opt.value = d.computer;
+                        opt.textContent = `💻 ${d.computer} (${d.count.toLocaleString()} bất thường)`;
+                        devSelect.appendChild(opt);
+                    });
+                    if (currentVal && currentVal !== 'all') {
+                        devSelect.value = currentVal;
+                    }
+                })
+                .catch(err => console.warn("Could not load devices:", err));
+        }
+
+        function changeLimit() {
+            const limitSelect = document.getElementById('display-limit-select');
+            currentLimit = limitSelect ? parseInt(limitSelect.value) : 50;
+            loadAnomalies(1);
+        }
+
+        function changePage(targetPage) {
+            if (targetPage < 1 || targetPage > totalPages || targetPage === currentPage) return;
+            loadAnomalies(targetPage);
+        }
+
+        function filterAnomaliesTable() {
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(() => {
+                loadAnomalies(1);
+            }, 300);
+        }
+
+        function loadAnomalies(page = 1) {
+            currentPage = page;
+            const devSelect = document.getElementById('device-filter');
+            const selectedDevice = devSelect ? devSelect.value : 'all';
+            const searchInput = document.getElementById('proc-search-input');
+            const searchVal = searchInput ? searchInput.value.trim() : '';
+            const limitSelect = document.getElementById('display-limit-select');
+            currentLimit = limitSelect ? parseInt(limitSelect.value) : 50;
+
+            const tbody = document.querySelector('#anomalies-table tbody');
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted font-monospace"><span class="spinner-border spinner-border-sm text-info me-2"></span>Đang truy vấn CSDL SQLite (Trang ${page})...</td></tr>`;
+
+            const url = `/api/anomalies?page=${page}&limit=${currentLimit}&mode=${currentViewMode}&device=${encodeURIComponent(selectedDevice)}&search=${encodeURIComponent(searchVal)}&t=${Date.now()}`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    let items = [];
+                    if (Array.isArray(data)) {
+                        items = data;
+                        totalRecords = data.length;
+                        totalPages = Math.max(1, Math.ceil(totalRecords / (currentLimit || 50)));
+                    } else {
+                        items = data.items || [];
+                        totalRecords = data.total !== undefined ? data.total : items.length;
+                        totalPages = data.total_pages !== undefined ? data.total_pages : 1;
+                    }
+                    renderTableRows(items, page, currentLimit, totalRecords);
+                    updatePaginationUI(totalRecords, page, currentLimit, totalPages);
+                })
+                .catch(err => {
+                    console.error("Error fetching anomalies:", err);
+                    tbody.innerHTML = `<tr><td colspan="5" class="text-center text-danger py-4 font-monospace">Lỗi truy vấn CSDL: ${err}</td></tr>`;
+                });
+        }
+
+        function updatePaginationUI(total, page, limit, totalPgs) {
+            const info = document.getElementById('pagination-info');
+            const pageDisplay = document.getElementById('current-page-display');
+            const btnFirst = document.getElementById('btn-first-page');
+            const btnPrev = document.getElementById('btn-prev-page');
+            const btnNext = document.getElementById('btn-next-page');
+            const btnLast = document.getElementById('btn-last-page');
+            const badge = document.getElementById('anom-count-badge');
+
+            const startIdx = total === 0 ? 0 : (page - 1) * limit + 1;
+            const endIdx = Math.min(page * limit, total);
+
+            if (info) {
+                info.innerHTML = `Hiển thị <span class="text-info fw-bold">${startIdx.toLocaleString()}</span> - <span class="text-info fw-bold">${endIdx.toLocaleString()}</span> trong tổng số <span class="text-warning fw-bold">${total.toLocaleString()}</span> chuỗi bất thường`;
+            }
+
+            if (badge) {
+                badge.innerText = `${total.toLocaleString()} chuỗi`;
+            }
+
+            if (pageDisplay) {
+                pageDisplay.innerText = `Trang ${page} / ${totalPgs}`;
+            }
+
+            if (btnFirst) btnFirst.disabled = (page <= 1);
+            if (btnPrev) btnPrev.disabled = (page <= 1);
+            if (btnNext) btnNext.disabled = (page >= totalPgs);
+            if (btnLast) btnLast.disabled = (page >= totalPgs);
+        }
+
+        function renderTableRows(items, page, limit, total) {
+            const thead = document.getElementById('anomalies-thead');
+            const tbody = document.querySelector('#anomalies-table tbody');
+            tbody.innerHTML = '';
+
+            thead.innerHTML = `
+                <tr>
+                    <th style="width: 7%;">ID</th>
+                    <th style="width: 48%;">Process Lineage & Thiết bị</th>
+                    <th style="width: 15%;">Error (Loss)</th>
+                    <th style="width: 15%;">Ngưỡng</th>
+                    <th style="width: 15%;">Nhãn (Label)</th>
+                </tr>
+            `;
+
+            if (!items || items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-5 text-muted font-monospace">Không tìm thấy chuỗi nào trong CSDL phù hợp bộ lọc.</td></tr>`;
+                return;
+            }
+
+            items.forEach((item, idx) => {
+                const tr = document.createElement('tr');
+                tr.style.cursor = 'pointer';
+                const globalIdx = (page - 1) * limit + idx + 1;
+
+                tr.onclick = () => {
+                    document.querySelectorAll('#anomalies-table tbody tr').forEach(r => r.classList.remove('active-row'));
+                    tr.classList.add('active-row');
+                    const keyId = item.sequence_id !== undefined ? item.sequence_id : (item.id !== undefined ? item.id : item.orig_row_idx);
+                    loadAnomalyDetail(keyId, item);
+                };
+
+                const parentName = getBasename(item.parent_image) || "Root/Parent";
+                const procName = getBasename(item.process_image);
+                const compBadge = item.computer ? `<span class="badge-host me-1">💻 ${escapeHtml(item.computer)}</span>` : '';
+
+                let chainHtml = `<span class="text-light font-monospace" style="font-size:0.85rem; color:#cbd5e1 !important;">${parentName}</span> <span class="text-arrow font-monospace" style="font-size:0.75rem;">➔</span> <span class="text-white fw-bold font-monospace" style="font-size:0.85rem;">${procName}</span>`;
+
+                if (item.destination_ip) {
+                    chainHtml += ` <span class="text-arrow font-monospace" style="font-size:0.75rem;">➔</span> <span class="text-danger font-monospace" style="font-size:0.75rem;">Net:${escapeHtml(item.destination_ip)}</span>`;
+                } else if (item.query_name) {
+                    chainHtml += ` <span class="text-arrow font-monospace" style="font-size:0.75rem;">➔</span> <span class="text-info font-monospace" style="font-size:0.75rem;">DNS:${escapeHtml(item.query_name)}</span>`;
+                }
+
+                const labelBadge = getLabelBadge(item.label !== undefined ? item.label : 1);
+                const thrStr = item.threshold ? Number(item.threshold).toFixed(4) : '--';
+
+                tr.innerHTML = `
+                    <td><span class="badge bg-dark border border-secondary text-info font-monospace">#${item.sequence_id || globalIdx}</span></td>
+                    <td>
+                        <div class="mb-1">${chainHtml}</div>
+                        <div>${compBadge}</div>
+                    </td>
+                    <td><span class="text-warning fw-bold font-monospace">${Number(item.reconstruction_error).toFixed(5)}</span></td>
+                    <td class="small font-monospace" style="color:#38bdf8 !important;">${thrStr}</td>
+                    <td>${labelBadge}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function loadAnomalyDetail(keyId, fallbackItem) {
+            document.getElementById('select-placeholder').style.display = 'none';
+            document.getElementById('details-card').style.display = 'block';
+
+            const excelRow = fallbackItem.excel_row || (fallbackItem.orig_row_idx !== -1 ? fallbackItem.orig_row_idx + 2 : "N/A");
+            document.getElementById('excel-row-badge').innerHTML = `Excel Row: ${excelRow} | <span class="badge bg-info text-dark font-monospace"><span class="spinner-border spinner-border-sm me-1"></span>Nạp XAI...</span>`;
+
+            fetch(`/api/anomaly_detail?id=${keyId}&t=${Date.now()}`)
+                .then(res => res.json())
+                .then(detail => {
+                    selectAnomaly(detail);
+                })
+                .catch(err => {
+                    console.warn("Could not load detail from API, using fallback:", err);
+                    selectAnomaly(fallbackItem);
+                });
+        }
+
+        function getProcessName(log) {
+            if (!log) return "Ø";
+            const fields = ["Image", "SourceImage", "ParentImage", "ImageLoaded"];
+            for (const field of fields) {
+                const val = log[field];
+                if (val && val !== "0" && val !== "-" && val !== "N/A") return getBasename(val);
+            }
+            return "Ø";
+        }
+
+        function isFieldEmpty(key, val) {
+            if (val === undefined || val === null) return true;
+            const s = String(val).trim();
+            if (s === "" || s === "nan" || s === "None" || s === "null" || s === "[]" || s === "N/A" || s === "-") return true;
+            if (key === "Label" || key === "EventID" || key === "QueryStatus" || key === "ProcessId" || key === "ParentProcessId") {
+                return false;
+            }
+            if (s === "0" || s === "0.0") return true;
+            return false;
+        }
+
+        function isEmpty(val) {
+            return isFieldEmpty('', val);
+        }
+
+        function renderSingleLineageNode(container, log, stepIdx, stepTitle, isWorst) {
+            const div = document.createElement('div');
+            const levelClass = stepIdx === 0 ? 'level-0' : (stepIdx === 1 ? 'level-1' : 'level-2');
+            div.className = `lineage-node ${levelClass}`;
+            
+            const hasData = log && (
+                (log.Image && log.Image !== "0" && log.Image !== "-" && log.Image !== "N/A") ||
+                (log.CommandLine && log.CommandLine !== "0" && log.CommandLine !== "-" && log.CommandLine !== "N/A") ||
+                (log.EventID && log.EventID !== 0 && log.EventID !== "0") ||
+                (log.excel_row && log.excel_row !== "N/A") ||
+                log.ProcessId
+            );
+            let displayLog = log;
+            
+            if (displayLog && hasData) {
+                const procName = getProcessName(displayLog) === "Ø" ? "System Process" : getProcessName(displayLog);
+                const eventName = getEventName(displayLog.EventID);
+                const timeRaw = displayLog.SystemTime || displayLog["@timestamp"] || displayLog.UtcTime || "";
+                const timeBadge = timeRaw ? `<span class="badge bg-dark border border-secondary text-warning font-monospace" style="font-size:0.7rem;">⏱️ ${formatTime(timeRaw)}</span>` : '';
+                const worstBadge = isWorst ? `<span class="badge bg-danger text-white ms-1 fw-bold" style="font-size:0.7rem;">🔥 ANOMALY TRIGGER</span>` : '';
+                const originBadge = (!displayLog.excel_row || displayLog.excel_row === "N/A") ?
+                    `<span class="badge bg-dark border border-info text-info font-monospace ms-1" style="font-size:0.65rem;" title="Thông tin kế thừa từ trường Parent của EID 1">[Từ EID 1 Parent]</span>` : '';
+                const pidBadge = displayLog.ProcessId ? `<span class="badge bg-secondary font-monospace ms-1" style="font-size:0.7rem;">PID: ${escapeHtml(displayLog.ProcessId)}</span>` : '';
+                const parentPidBadge = (stepIdx === 1 && (displayLog.ParentProcessId || displayLog.ParentImage)) ?
+                    `<span class="badge text-dark font-monospace ms-1" style="font-size:0.7rem; background:#fbbf24;" title="Tiến trình cha khởi tạo">👑 Cha PID: ${escapeHtml(displayLog.ParentProcessId || 'N/A')}</span>` : '';
+
+                // Prioritized list of known Sysmon / EDR fields for top ordering
+                const prioritizedKeys = [
+                    "EventID", "Image", "CommandLine", "CurrentDirectory", "ProcessId", "ProcessGuid",
+                    "User", "IntegrityLevel", "Label",
+                    "ParentImage", "ParentCommandLine", "ParentProcessId", "ParentProcessGuid", "ParentUser", "GrandparentImage",
+                    "Protocol", "Initiated", "SourceIp", "SourcePort", "SourceHostname",
+                    "DestinationIp", "DestinationPort", "DestinationHostname",
+                    "QueryName", "QueryStatus", "QueryResults",
+                    "TargetFilename", "TargetObject", "PipeName", "Details",
+                    "Hashes", "ImageLoaded", "Signed", "Signature", "SignatureStatus",
+                    "OriginalFileName", "Description", "Product", "Company", "FileVersion",
+                    "SourceProcessGuid", "SourceProcessId", "SourceImage", "SourceUser",
+                    "TargetProcessGuid", "TargetProcessId", "TargetImage", "TargetUser",
+                    "GrantedAccess", "CallTrace",
+                    "Computer", "SystemTime", "UtcTime", "LogonGuid", "LogonId", "TerminalSessionId", "RuleName", "EventRecordID"
+                ];
+
+                const skippedKeys = new Set([
+                    'step', 'step_role', 'attribution_score', 'feature_errors', '_row_idx', 'excel_row',
+                    'Process_Depth', 'process_depth'
+                ]);
+
+                // Collect all keys to display: prioritized first, then any extra key present
+                const renderedKeySet = new Set();
+                const orderedKeys = [];
+                prioritizedKeys.forEach(k => {
+                    if (displayLog.hasOwnProperty(k)) {
+                        orderedKeys.push(k);
+                        renderedKeySet.add(k);
+                    }
+                });
+                Object.keys(displayLog).forEach(k => {
+                    if (!renderedKeySet.has(k) && !skippedKeys.has(k)) {
+                        orderedKeys.push(k);
+                    }
+                });
+
+                let detailsHtml = '<table class="details-table">';
+                orderedKeys.forEach(k => {
+                    const val = displayLog[k];
+                    if (!isFieldEmpty(k, val)) {
+                        let rawStr = String(val);
+                        let formattedVal = escapeHtml(rawStr);
+
+                        if (k === "Label") {
+                            formattedVal = getLabelBadge(rawStr);
+                        } else if (k === "IntegrityLevel") {
+                            const badgeColor = rawStr === "High" || rawStr === "System" ? "bg-danger" : "bg-info text-dark";
+                            formattedVal = `<span class="badge ${badgeColor} font-monospace" style="font-size:0.75rem;">${formattedVal}</span>`;
+                        } else if (k === "CommandLine" || k === "ParentCommandLine") {
+                            formattedVal = `<span class="text-warning font-monospace">${formattedVal}</span>`;
+                        } else if (k === "Image" || k === "ParentImage" || k === "GrandparentImage" || k === "ImageLoaded" || k === "SourceImage" || k === "TargetImage") {
+                            formattedVal = `<span class="text-info font-monospace">${formattedVal}</span>`;
+                        } else if (k === "DestinationIp" || k === "DestinationPort" || k === "SourceIp" || k === "SourcePort") {
+                            formattedVal = `<span class="text-danger fw-bold font-monospace">${formattedVal}</span>`;
+                        } else if (k === "Hashes") {
+                            formattedVal = `<div class="text-secondary font-monospace" style="word-break: break-all; font-size:0.75rem;">${escapeHtml(rawStr).replace(/,/g, '<br>')}</div>`;
+                        } else if (k === "CurrentDirectory") {
+                            formattedVal = `<span class="text-secondary font-monospace">${formattedVal}</span>`;
+                        } else if (k === "User" || k === "ParentUser") {
+                            formattedVal = `<span class="text-light fw-semibold">${formattedVal}</span>`;
+                        } else if (k === "QueryName" || k === "DestinationHostname") {
+                            formattedVal = `<span class="text-cyan font-monospace">${formattedVal}</span>`;
+                        } else if (k === "ParentProcessId") {
+                            formattedVal = `<span class="badge text-dark font-monospace fw-bold" style="background:#fbbf24; font-size:0.8rem;">PID: ${formattedVal}</span> <span class="text-info small ms-1">➔ Khớp PID tiến trình Cha</span>`;
+                        } else if (k === "ProcessId") {
+                            formattedVal = `<span class="badge bg-info text-dark font-monospace fw-bold" style="font-size:0.8rem;">PID: ${formattedVal}</span>`;
+                        } else if (k === "ParentProcessGuid" || k === "ProcessGuid") {
+                            formattedVal = `<code class="text-cyan font-monospace" style="font-size:0.8rem;">${formattedVal}</code>`;
+                        } else if (k === "QueryResults") {
+                            formattedVal = `<span class="text-success font-monospace" style="word-break: break-all; font-size:0.75rem;">${formattedVal}</span>`;
+                        }
+
+                        detailsHtml += `<tr><th>${k}</th><td>${formattedVal}</td></tr>`;
+                    }
+                });
+                detailsHtml += '</table>';
+
+                div.innerHTML = `
+                    <details open>
+                        <summary class="d-flex justify-content-between align-items-center py-1">
+                            <div>
+                                <strong class="text-light font-monospace" style="font-size:0.9rem;">${stepTitle}: ${procName}</strong>
+                                ${pidBadge}
+                                ${parentPidBadge}
+                                <span class="badge bg-dark border border-secondary text-info font-monospace ms-1" style="font-size:0.7rem;">${eventName}</span>
+                                ${originBadge}
+                                ${worstBadge}
+                            </div>
+                            ${timeBadge}
+                        </summary>
+                        <div class="details-wrapper">
+                            ${detailsHtml}
+                        </div>
+                    </details>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="fw-bold text-secondary font-monospace" style="font-size:0.85rem;">${stepTitle}</div>
+                        <span class="badge bg-secondary opacity-50 font-monospace" style="font-size:0.65rem;">[Zero-Padding]</span>
+                    </div>
+                    <div class="small font-monospace" style="font-style: italic; color: #94a3b8;">[Không có sự kiện cha trong chuỗi telemetry này]</div>
+                `;
+            }
+            container.appendChild(div);
+        }
+
+        function selectAnomaly(item) {
+            selectedAnomalyItem = item;
+            cachedRelatedTreeData = null; // reset tree cache for newly selected anomaly
+            document.getElementById('select-placeholder').style.display = 'none';
+            document.getElementById('details-card').style.display = 'block';
+
+            const thrVal = item.threshold !== undefined ? item.threshold : item.tier_threshold;
+            const thrStr = thrVal !== undefined ? Number(thrVal).toFixed(4) : '--';
+            document.getElementById('excel-row-badge').innerHTML = `Excel Row: ${item.excel_row} | <span class="badge bg-warning text-dark font-monospace">Threshold: ${thrStr}</span>`;
+
+            const compBadge = document.getElementById('computer-badge');
+            if (compBadge) {
+                const compName = item.computer || (item.logs && item.logs[1] ? item.logs[1].Computer : "") || "N/A";
+                compBadge.innerText = `💻 ${compName}`;
+            }
+
+            const detailLblBadge = document.getElementById('detail-label-badge');
+            if (detailLblBadge) {
+                const lbl = parseInt(item.label !== undefined ? item.label : 1);
+                if (lbl === 2) {
+                    detailLblBadge.className = 'badge text-white font-monospace';
+                    detailLblBadge.style.backgroundColor = '#9333ea';
+                    detailLblBadge.innerText = 'Label 2 (Độc hại)';
+                } else if (lbl === 1) {
+                    detailLblBadge.className = 'badge bg-danger text-white font-monospace';
+                    detailLblBadge.style.backgroundColor = '';
+                    detailLblBadge.innerText = 'Label 1 (Độc hại)';
+                } else {
+                    detailLblBadge.className = 'badge bg-success text-white font-monospace';
+                    detailLblBadge.style.backgroundColor = '';
+                    detailLblBadge.innerText = 'Label 0 (Bình thường)';
+                }
+            }
+
+            if (currentLineageView === 'tree') {
+                renderRelatedTreeInline();
+            } else {
+                renderStepsLineageInline();
+            }
+
+            if (item.worst_log_top_features) {
+                renderChart(item.worst_log_top_features, `Chuỗi #${item.id}`);
+            }
+        }
+
+        function renderChart(topFeatures, title) {
+            const ctx = document.getElementById('attribution-chart').getContext('2d');
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            const cleanFeatures = (topFeatures || []).filter(f => !f.feature_name.toLowerCase().includes('depth'));
+            const labels = cleanFeatures.map(f => f.feature_name);
+            const scores = cleanFeatures.map(f => f.score);
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Điểm đóng góp (IG Score)',
+                        data: scores,
+                        backgroundColor: 'rgba(56, 189, 248, 0.75)',
+                        borderColor: '#38bdf8',
+                        borderWidth: 1.5,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Điểm đóng góp: ${context.raw.toFixed(6)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#e2e8f0', font: { family: 'JetBrains Mono', size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // FORENSIC LINEAGE & RELATED TREE VIEW LOGIC
+        function toggleLineageView(mode) {
+            currentLineageView = mode;
+            const btnSteps = document.getElementById('btn-view-steps');
+            const btnTree = document.getElementById('btn-view-tree');
+            const title = document.getElementById('lineage-view-title');
+
+            if (mode === 'tree') {
+                if (btnSteps) { btnSteps.className = 'btn btn-sm btn-outline-info py-0 px-2 font-monospace'; }
+                if (btnTree) { btnTree.className = 'btn btn-sm btn-info py-0 px-2 font-monospace'; }
+                if (title) title.innerHTML = '🌳 CÂY PHẢ HỆ TIẾN TRÌNH LIÊN QUAN (PROCESS LINEAGE GRAPH)';
+                renderRelatedTreeInline();
+            } else {
+                if (btnSteps) { btnSteps.className = 'btn btn-sm btn-info py-0 px-2 font-monospace'; }
+                if (btnTree) { btnTree.className = 'btn btn-sm btn-outline-info py-0 px-2 font-monospace'; }
+                if (title) title.innerHTML = '🔬 PHẢ HỆ TIẾN TRÌNH & HÀNH VI (PROCESS TELEMETRY)';
+                renderStepsLineageInline();
+            }
+        }
+
+        function renderStepsLineageInline() {
+            const lineageContainer = document.getElementById('lineage-container');
+            if (!lineageContainer || !selectedAnomalyItem) return;
+            lineageContainer.innerHTML = '';
+
+            const item = selectedAnomalyItem;
+            if (item.logs && Array.isArray(item.logs)) {
+                // Prominent parent-child lineage relationship banner
+                const pLog = item.logs[0] || {};
+                const tLog = item.logs[1] || {};
+                const pName = getBasename(pLog.Image || pLog.ParentImage || "Parent");
+                const tName = getBasename(tLog.Image || "Target");
+                const pPid = pLog.ProcessId || tLog.ParentProcessId || "N/A";
+                const tPid = tLog.ProcessId || "N/A";
+
+                const lineageBanner = document.createElement('div');
+                lineageBanner.className = 'mb-3 p-2 rounded font-monospace';
+                lineageBanner.style.background = 'rgba(0, 242, 254, 0.08)';
+                lineageBanner.style.border = '1px solid rgba(0, 242, 254, 0.3)';
+                lineageBanner.style.fontSize = '0.82rem';
+                lineageBanner.innerHTML = `
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <span class="text-info fw-bold">🔗 LIÊN KẾT PHẢ HỆ (PARENT ➔ CHILD):</span>
+                            <span class="badge text-dark fw-bold ms-1" style="background:#fbbf24;">CHA: ${escapeHtml(pName)} (PID: ${escapeHtml(pPid)})</span>
+                            <span class="text-white mx-1">➔</span>
+                            <span class="badge bg-danger text-white fw-bold">ĐÍCH: ${escapeHtml(tName)} (PID: ${escapeHtml(tPid)})</span>
+                        </div>
+                        <div class="text-muted small">
+                            ${pLog.ProcessGuid ? `<span class="me-2 text-info">Parent GUID: <code>${escapeHtml(pLog.ProcessGuid.slice(0, 16))}...</code></span>` : ''}
+                            ${tLog.ProcessGuid ? `<span class="text-warning">Target GUID: <code>${escapeHtml(tLog.ProcessGuid.slice(0, 16))}...</code></span>` : ''}
+                        </div>
+                    </div>
+                `;
+                lineageContainer.appendChild(lineageBanner);
+
+                item.logs.forEach((log, idx) => {
+                    let stepTitle = "";
+                    if (idx === 0) stepTitle = "👑 Tiến trình Cha (Parent Vector)";
+                    else if (idx === 1) stepTitle = "🎯 Tiến trình Hiện tại (Target Process)";
+                    else stepTitle = `⚡ Hành vi #${idx - 1} (${getEventName(log.EventID)})`;
+
+                    const isWorst = (idx === item.worst_log_index);
+                    renderSingleLineageNode(lineageContainer, log, idx, stepTitle, isWorst);
+                });
+            } else {
+                lineageContainer.innerHTML = '<div class="p-3 text-muted font-monospace text-center">Không có chuỗi sự kiện chi tiết cho bản ghi này.</div>';
+            }
+        }
+
+        function renderRelatedTreeInline() {
+            const lineageContainer = document.getElementById('lineage-container');
+            if (!lineageContainer || !selectedAnomalyItem) return;
+
+            if (cachedRelatedTreeData) {
+                renderTreeGraph(cachedRelatedTreeData);
+                return;
+            }
+
+            const keyId = selectedAnomalyItem.id !== undefined ? selectedAnomalyItem.id : (selectedAnomalyItem.sequence_id !== undefined ? selectedAnomalyItem.sequence_id : selectedAnomalyItem.orig_row_idx);
+            lineageContainer.innerHTML = `
+                <div class="text-center py-4 text-muted font-monospace">
+                    <span class="spinner-border spinner-border-sm text-info me-2"></span>
+                    Đang tính toán toàn bộ tiến trình liên quan (Cha ➔ Đích ➔ Con ➔ Sibling)...
+                </div>
+            `;
+
+            fetch(`/api/related_tree?id=${keyId}&t=${Date.now()}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.tree) {
+                        cachedRelatedTreeData = data.tree;
+                        renderTreeGraph(data.tree);
+                    } else {
+                        lineageContainer.innerHTML = '<div class="text-center text-muted py-4 font-monospace">Không có thông tin phả hệ mở rộng cho tiến trình này.</div>';
+                    }
+                })
+                .catch(err => {
+                    console.error("Error loading related process tree:", err);
+                    lineageContainer.innerHTML = `<div class="text-center text-danger py-4 font-monospace">Lỗi khi tính toán cây phả hệ: ${err.message}</div>`;
+                });
+        }
+
+        function renderTreeGraph(rootNode) {
+            const lineageContainer = document.getElementById('lineage-container');
+            if (!lineageContainer) return;
+            lineageContainer.innerHTML = renderRelatedTreeNodeHtml(rootNode);
+        }
+
+        function renderRelatedTreeNodeHtml(node) {
+            if (!node) return '';
+
+            const isTarget = !!node.is_target;
+            const isParent = !!node.is_parent || (node.role_name && node.role_name.includes('CHA'));
+            const isGrandparent = !!node.is_grandparent || (node.role_name && node.role_name.includes('ÔNG'));
+            const isRoot = node.role_name && (node.role_name.includes('ROOT') || node.role_name.includes('GỐC'));
+            const isAncestor = node.role_name && node.role_name.includes('CỤ');
+            const isChild = !!node.is_child || (node.role_name && node.role_name.includes('CON'));
+            const isSibling = !!node.is_sibling || (node.role_name && node.role_name.includes('CÙNG CẤP'));
+
+            let roleBadge = '';
+            let nodeBorderClass = '';
+
+            if (isTarget) {
+                roleBadge = `<span class="badge bg-danger text-white font-monospace me-1">🎯 MỤC TIÊU BẤT THƯỜNG</span>`;
+                nodeBorderClass = 'is-malicious';
+            } else if (isRoot) {
+                roleBadge = `<span class="badge text-white font-monospace me-1" style="background:#10b981;">🌳 GỐC PHẢ HỆ (ROOT)</span>`;
+                nodeBorderClass = 'border-success';
+            } else if (isAncestor) {
+                roleBadge = `<span class="badge text-white font-monospace me-1" style="background:#6366f1;">🏛️ TIẾN TRÌNH CỤ (ANCESTOR)</span>`;
+            } else if (isGrandparent) {
+                roleBadge = `<span class="badge text-dark font-monospace me-1" style="background:#c084fc;">🏛️ TIẾN TRÌNH ÔNG (GRANDPARENT)</span>`;
+            } else if (isParent) {
+                roleBadge = `<span class="badge text-dark font-monospace me-1" style="background:#fbbf24;">👑 TIẾN TRÌNH CHA (PARENT)</span>`;
+            } else if (isChild) {
+                roleBadge = `<span class="badge text-white font-monospace me-1" style="background:#0284c7;">👶 TIẾN TRÌNH CON (CHILD)</span>`;
+            } else if (isSibling) {
+                roleBadge = `<span class="badge text-white font-monospace me-1" style="background:#475569;">👥 CÙNG TIẾN TRÌNH CHA (SIBLING)</span>`;
+            }
+
+            const lbl = parseInt(node.label !== undefined ? node.label : 0);
+            const labelBadge = getLabelBadge(lbl);
+
+            const pidStr = node.pid ? `<span class="badge bg-secondary font-monospace ms-1" style="font-size:0.65rem;">PID: ${node.pid}</span>` : '';
+            const userStr = node.user ? `<span class="badge bg-dark border border-secondary text-info font-monospace ms-1" style="font-size:0.65rem;">👤 ${escapeHtml(node.user)}</span>` : '';
+            const timeStr = node.time ? `<span class="badge bg-dark border border-secondary text-warning font-monospace ms-1" style="font-size:0.65rem;">⏱️ ${formatTime(node.time)}</span>` : '';
+            const lossStr = node.reconstruction_error ? `<span class="badge bg-dark border border-danger text-danger font-monospace ms-1" style="font-size:0.65rem;">Loss: ${Number(node.reconstruction_error).toFixed(4)}</span>` : '';
+
+            let cmdHtml = '';
+            if (node.cmd && node.cmd !== 'nan' && node.cmd !== 'N/A' && node.cmd !== '') {
+                cmdHtml = `<div class="text-warning small font-monospace mt-1 p-1 rounded" style="background:rgba(0,0,0,0.3); word-break: break-all; font-size:0.75rem;">📜 Lệnh: ${escapeHtml(node.cmd)}</div>`;
+            }
+
+            let eventsHtml = '';
+            if (node.events && node.events.length > 0) {
+                node.events.forEach(ev => {
+                    const eid = parseInt(ev.EventID);
+                    if (eid === 3 && ev.DestinationIp) {
+                        eventsHtml += `<div class="tree-event-badge net">🌐 Kết nối mạng (EID 3) ➔ ${escapeHtml(ev.DestinationIp)}${ev.DestinationPort ? ':' + ev.DestinationPort : ''}</div>`;
+                    } else if (eid === 11 && ev.TargetFilename) {
+                        eventsHtml += `<div class="tree-event-badge file">📄 Tạo tệp (EID 11) ➔ ${escapeHtml(getBasename(ev.TargetFilename))}</div>`;
+                    } else if (eid === 22 && ev.QueryName) {
+                        eventsHtml += `<div class="tree-event-badge dns">🔍 Truy vấn DNS (EID 22) ➔ ${escapeHtml(ev.QueryName)}</div>`;
+                    } else if (eid === 7 && ev.ImageLoaded) {
+                        eventsHtml += `<div class="tree-event-badge" style="border-left-color:#8b5cf6; color:#c4b5fd;">📦 Nạp DLL (EID 7) ➔ ${escapeHtml(getBasename(ev.ImageLoaded))}</div>`;
+                    }
+                });
+            }
+
+            // Full property detail table for each process node
+            const propDetailHtml = `
+                <details class="mt-2 mb-2 p-2 rounded" style="background: rgba(11, 18, 33, 0.7); border: 1px solid rgba(0, 242, 254, 0.2);">
+                    <summary class="text-info font-monospace small fw-bold" style="cursor: pointer;">
+                        🔍 Xem bảng thuộc tính chi tiết đầy đủ (${escapeHtml(node.basename || getBasename(node.image))})...
+                    </summary>
+                    <div class="mt-2">
+                        <table class="details-table mb-0" style="font-size: 0.8rem;">
+                            <tr><th style="width: 170px;">Image (Đường dẫn đầy đủ)</th><td class="text-info font-monospace">${escapeHtml(node.image || 'N/A')}</td></tr>
+                            ${node.cmd ? `<tr><th>CommandLine (Dòng lệnh)</th><td class="text-warning font-monospace">${escapeHtml(node.cmd)}</td></tr>` : ''}
+                            ${node.pid ? `<tr><th>ProcessId (PID)</th><td><span class="badge bg-info text-dark font-monospace fw-bold">PID: ${escapeHtml(node.pid)}</span></td></tr>` : ''}
+                            ${node.guid ? `<tr><th>ProcessGuid</th><td><code class="text-cyan font-monospace">${escapeHtml(node.guid)}</code></td></tr>` : ''}
+                            ${node.user ? `<tr><th>User (Tài khoản)</th><td class="text-light">${escapeHtml(node.user)}</td></tr>` : ''}
+                            ${node.integrity_level ? `<tr><th>IntegrityLevel</th><td><span class="badge bg-secondary font-monospace">${escapeHtml(node.integrity_level)}</span></td></tr>` : ''}
+                            ${node.parent_image ? `<tr><th>ParentImage (Tiến trình Cha)</th><td class="text-warning font-monospace">${escapeHtml(node.parent_image)}</td></tr>` : ''}
+                            ${node.parent_pid ? `<tr><th>ParentProcessId (PID Cha)</th><td><span class="badge text-dark font-monospace fw-bold" style="background:#fbbf24;">PID: ${escapeHtml(node.parent_pid)}</span></td></tr>` : ''}
+                            ${node.parent_guid ? `<tr><th>ParentProcessGuid</th><td><code class="text-cyan font-monospace">${escapeHtml(node.parent_guid)}</code></td></tr>` : ''}
+                            ${node.parent_user ? `<tr><th>ParentUser</th><td class="text-light">${escapeHtml(node.parent_user)}</td></tr>` : ''}
+                            ${node.computer ? `<tr><th>Computer (Máy chủ)</th><td class="text-white">${escapeHtml(node.computer)}</td></tr>` : ''}
+                            ${node.time ? `<tr><th>SystemTime (Thời gian)</th><td class="text-warning font-monospace">${escapeHtml(node.time)}</td></tr>` : ''}
+                        </table>
+                    </div>
+                </details>
+            `;
+
+            let childrenHtml = '';
+            if (node.children && node.children.length > 0) {
+                childrenHtml += `<div class="tree-children mt-2">`;
+                node.children.forEach(child => {
+                    childrenHtml += renderRelatedTreeNodeHtml(child);
+                });
+                childrenHtml += `</div>`;
+            }
+
+            return `
+                <div class="tree-node ${nodeBorderClass}" style="border-radius: 6px; margin-bottom: 8px;">
+                    <details open>
+                        <summary class="fw-bold" style="cursor: pointer;">
+                            <div class="d-flex align-items-center flex-wrap gap-1">
+                                ${roleBadge}
+                                <span class="text-white font-monospace fs-6">${escapeHtml(node.basename || getBasename(node.image))}</span>
+                                ${labelBadge}
+                                ${pidStr}
+                                ${userStr}
+                                ${timeStr}
+                                ${lossStr}
+                            </div>
+                        </summary>
+                        <div class="ps-2 pt-1">
+                            ${cmdHtml}
+                            ${eventsHtml}
+                            ${propDetailHtml}
+                            ${childrenHtml}
+                        </div>
+                    </details>
+                </div>
+            `;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function jumpToSelectedProcessTree() {
+            toggleLineageView('tree');
+        }
+    </script>
+</body>
+</html>

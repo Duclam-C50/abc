@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence indices     : [-1, 39524, 39110]
+Trigger row (Excel)  : 39112
+Reconstruction error : 0.074474
+Label                : Normal (0)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 39526
+Attribution score    : 0.011803
+SystemTime           : 2021-09-08 00:03:07.772701
+Image                : C:\Users\altinitat.STEFANIA\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe
+CommandLine          : C:\Users\altinitat.STEFANIA\AppData\Local\Microsoft\OneDrive\OneDriveStandaloneUpdater.exe
+EventID              : 1
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  CommandLine                    0.011911
+  #02  ParentCommandLine              0.009386
+  #03  Image                          0.000887
+  #04  EventID_22                     -0.000000
+  #05  EventID_16                     -0.000000
+  #06  EventID_11                     -0.000000
+  #07  EventID_15                     -0.000000
+  #08  EventID_13                     -0.000000
+  #09  EventID_12                     0.000000
+  #10  EventID_5                      -0.000000
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 23:55:19.763914
+Image        : C:\Users\altinitat.STEFANIA\AppData\Local\Microsoft\OneDrive\22.227.1030.0001\Microsoft.SharePoint.exe
+CommandLine  : "C:\Users\altinitat.STEFANIA\AppData\Local\Microsoft\OneDrive\22.227.1030.0001\Microsoft.SharePoint.exe" /silentConfig

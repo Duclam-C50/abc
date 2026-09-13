@@ -1,0 +1,31 @@
+=== INTEGRATED GRADIENTS -- ANOMALY EXPLANATION REPORT ===
+Sequence start index : 26960
+Trigger row (Excel)  : 26964
+Reconstruction error : 0.004698
+Label                : Anomalous (1)
+
+--- WORST LOG IN SEQUENCE ---
+Step in sequence     : 2/3
+Row (Excel)          : 26963
+Attribution score    : 0.046506
+SystemTime           : 2021-09-07 18:10:35.055839
+Image                : C:\Windows\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe
+CommandLine          : 0
+EventID              : 22
+
+--- TOP 10 CONTRIBUTING FEATURES AT WORST LOG ---
+  #01  Image                          0.017651
+  #02  QueryResults                   0.008521
+  #03  CommandLine                    0.006100
+  #04  ParentCommandLine              0.003962
+  #05  User                           0.003646
+  #06  StartFunction                  0.002809
+  #07  Signature                      0.002370
+  #08  StartModule                    0.002279
+  #09  EventID                        0.001232
+  #10  ParentImage                    0.000102
+
+--- TRIGGER EVENT (last log in sequence) ---
+SystemTime   : 2021-09-07 18:10:21.770058
+Image        : C:\Windows\SystemApps\Microsoft.Windows.Search_cw5n1h2txyewy\SearchApp.exe
+CommandLine  : 0
