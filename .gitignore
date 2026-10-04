@@ -1,4 +1,4 @@
-﻿# Virtual Environment
+# Virtual Environment
 venv/
 env/
 .env
@@ -25,6 +25,13 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# MS Office Temporary Files
+~$*
+*.tmp
+
+# Scratch Files
+artifacts/scratch/
 
 # Large SQLite temporary or lock files
 *.db-journal

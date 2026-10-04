@@ -161,16 +161,31 @@ def evaluate(
     dist_plot_path = paths.eval_report.replace(".json", "_error_dist.png")
     plot_error_distribution(normal_err, anomalous_err, threshold, save_path=dist_plot_path)
 
-    # Save JSON report
+    # Save JSON report with complete metrics
+    tp = int(cm[1, 1]) if cm.shape == (2, 2) else 0
+    fp = int(cm[0, 1]) if cm.shape == (2, 2) else 0
+    fn = int(cm[1, 0]) if cm.shape == (2, 2) else 0
+    tn = int(cm[0, 0]) if cm.shape == (2, 2) else 0
+    precision = float(tp / (tp + fp)) if (tp + fp) > 0 else 0.0
+    recall = float(tp / (tp + fn)) if (tp + fn) > 0 else 0.0
+    f1 = float(2 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+
     os.makedirs(os.path.dirname(paths.eval_report), exist_ok=True)
     with open(paths.eval_report, "w") as f:
         json.dump(
             {
-                "auc": auc,
-                "threshold": threshold,
-                "global_threshold": threshold,
+                "auc": float(auc),
+                "threshold": float(threshold),
+                "global_threshold": float(threshold),
                 "n_normal": int(len(normal_err)),
-                "n_anomalous": int(len(anomalous_err))
+                "n_anomalous": int(len(anomalous_err)),
+                "precision": precision,
+                "recall": recall,
+                "f1": f1,
+                "tp": tp,
+                "fp": fp,
+                "tn": tn,
+                "fn": fn
             },
             f,
             indent=2,

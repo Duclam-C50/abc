@@ -109,32 +109,39 @@ class EventSpecificMaskedMSE(keras.losses.Loss):
         self.event_col_indices = list(event_col_indices)
 
     def call(self, y_true, y_pred):
-        # 1. Step-wise mask: Mask out zero-padded steps (all features are zero)
+        # ------------------------------------------------------------------
+        # 1. Tạo mặt nạ thời gian Step Mask (Khử bước đệm zero-padding)
+        # ------------------------------------------------------------------
         step_mask = keras.ops.any(y_true != 0, axis=2)  # (batch_size, seq_len)
         step_mask_float = keras.ops.cast(step_mask, "float32")
-
-        # 2. Event-specific feature mask
-        # Extract the one-hot encoded event ID columns from y_true
+        # ------------------------------------------------------------------
+        # 2. Tạo mặt nạ đặc trưng Feature Mask theo Event ID
+        # ------------------------------------------------------------------
         one_hot_events = keras.ops.take(y_true, self.event_col_indices, axis=2)
         mask_tensor = keras.ops.convert_to_tensor(self.mask_matrix, dtype="float32")
 
         # Compute feature mask: (batch_size, seq_len, n_features)
         feature_mask = keras.ops.matmul(one_hot_events, mask_tensor)
-
-        # 3. Compute squared error and apply feature mask
+        # ------------------------------------------------------------------
+        # 3. [CÔNG THỨC 17] Tính MSEt có lọc mặt nạ đặc trưng tại từng bước t
+        # ------------------------------------------------------------------
         sq_err = keras.ops.square(y_true - y_pred)
         masked_sq_err = sq_err * feature_mask
-
-        # Sum over features and divide by active feature counts
         active_feature_counts = keras.ops.sum(feature_mask, axis=2, keepdims=True)
         active_feature_counts = keras.ops.maximum(active_feature_counts, 1.0)
         mse_per_step = keras.ops.sum(masked_sq_err, axis=2) / keras.ops.squeeze(active_feature_counts, axis=2)
-
-        # 4. Apply step mask and average over active steps
+        # ------------------------------------------------------------------
+        # 4. [CÔNG THỨC 18] Tính Loss_chuỗi bằng cách khử đệm và chia T_thực
+        # ------------------------------------------------------------------
         total_active_steps = keras.ops.sum(step_mask_float, axis=1)
         total_active_steps = keras.ops.maximum(total_active_steps, 1.0)
-        loss = keras.ops.sum(mse_per_step * step_mask_float, axis=1) / total_active_steps
         
+        # Loss của từng chuỗi i trong lô
+        loss = keras.ops.sum(mse_per_step * step_mask_float, axis=1) / total_active_steps
+        # ------------------------------------------------------------------
+        # 5. [CÔNG THỨC 19] Trung bình cộng sai số trên toàn bộ Batch (N chuỗi)
+        # Keras mặc định tính mean(loss_per_sequence) = (1/N) * sum(Loss_chuỗi)
+        # ------------------------------------------------------------------
         return loss
 
     def get_config(self):

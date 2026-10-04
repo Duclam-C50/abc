@@ -398,7 +398,7 @@
             </div>
             <div class="d-flex align-items-center gap-2">
                 <span class="badge bg-danger text-white border border-danger pulse-threat px-3 py-1 font-monospace" style="font-size:0.75rem;">
-                    DETECTED ATTACKS (LABEL 1 & 2: 61,297 CHUỖI)
+                    DETECTED ATTACKS (LABEL 1 & 2: 63,629 CHUỖI)
                 </span>
                 <span class="badge bg-dark border border-info text-info font-monospace px-2 py-1" id="device-label">
                     8 MONITORED HOSTS (LMD-2023)
@@ -413,28 +413,28 @@
                     <div class="col-md-3">
                         <div class="card p-3 metric-card danger">
                             <div class="metric-title">🎯 Tỷ lệ phát hiện (Recall)</div>
-                            <div class="metric-value text-danger" id="recall-val">94.0%</div>
-                            <div class="small text-muted font-monospace">64,219 / 68,308 Chuỗi độc hại</div>
+                            <div class="metric-value text-danger" id="recall-val">93.2%</div>
+                            <div class="small text-muted font-monospace">63,629 / 68,308 Chuỗi độc hại</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card p-3 metric-card success">
                             <div class="metric-title">🎯 Độ chính xác cảnh báo (Precision)</div>
-                            <div class="metric-value text-success" id="precision-val">90.2%</div>
-                            <div class="small text-muted font-monospace">F1-Score: 0.921 (FP Cực Thấp)</div>
+                            <div class="metric-value text-success" id="precision-val">90.8%</div>
+                            <div class="small text-muted font-monospace">F1-Score: 0.919 (FP Cực Thấp)</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card p-3 metric-card warning">
                             <div class="metric-title">⚡ Ngưỡng phân tách AI (p80)</div>
-                            <div class="metric-value text-warning" id="threshold-val">0.0082</div>
+                            <div class="metric-value text-warning" id="threshold-val">0.0118</div>
                             <div class="small text-muted font-monospace" id="global-thr-text">Adaptive Anomaly Baseline</div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card p-3 metric-card">
                             <div class="metric-title">🧠 Hiệu năng phân biệt (ROC-AUC)</div>
-                            <div class="metric-value text-info" id="auc-val">84.18%</div>
+                            <div class="metric-value text-info" id="auc-val">93.38%</div>
                             <div class="small text-muted font-monospace">LSTM Autoencoder Engine</div>
                         </div>
                     </div>
@@ -661,6 +661,25 @@
                 if (data.threshold !== undefined || data.global_threshold !== undefined) {
                     const thr = data.threshold !== undefined ? data.threshold : data.global_threshold;
                     document.getElementById('threshold-val').innerText = Number(thr).toFixed(4);
+                }
+                if (data.recall !== undefined) {
+                    document.getElementById('recall-val').innerText = (data.recall * 100).toFixed(1) + '%';
+                }
+                if (data.precision !== undefined) {
+                    document.getElementById('precision-val').innerText = (data.precision * 100).toFixed(1) + '%';
+                }
+                if (data.tp !== undefined && data.fn !== undefined) {
+                    const totalAnom = data.tp + data.fn;
+                    const recallSub = document.querySelector('#recall-val').nextElementSibling;
+                    if (recallSub) recallSub.innerText = `${data.tp.toLocaleString()} / ${totalAnom.toLocaleString()} Chuỗi độc hại`;
+                }
+                if (data.f1 !== undefined) {
+                    const precSub = document.querySelector('#precision-val').nextElementSibling;
+                    if (precSub) precSub.innerText = `F1-Score: ${data.f1.toFixed(3)} (FP Cực Thấp)`;
+                }
+                if (data.tp !== undefined) {
+                    const attackBadge = document.querySelector('.pulse-threat');
+                    if (attackBadge) attackBadge.innerText = `DETECTED ATTACKS (LABEL 1 & 2: ${data.tp.toLocaleString()} CHUỖI)`;
                 }
             })
             .catch(err => console.warn("Could not load /api/eval:", err));

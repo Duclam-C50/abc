@@ -31,7 +31,7 @@ FEATURE_COLUMNS: List[str] = [
     "EventID", "Image", "CommandLine", "User",
     "ParentImage", "ParentCommandLine", "TargetFilename",
     "TargetObject", "ImageLoaded", "Signed", "Signature", "SignatureStatus",
-    "SourceImage", "TargetImage", "QueryName", "QueryStatus", "Computer"
+    "SourceImage", "TargetImage", "EventType", "QueryName", "QueryStatus", "Computer"
 ]
 
 
@@ -44,10 +44,10 @@ class HyperParams:
 
     seq_len: int = 15
     batch_size: int = 64
-    epochs: int = 20
+    epochs: int = 15
     lr: float = 1e-3
     hidden_size: int = 32
-    num_layers: int = 1
+    num_layers: int = 2
     val_split: float = 0.2
 
     # Grid-search candidates (used only by the grid-search script)
